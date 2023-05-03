@@ -1,17 +1,36 @@
 <!doctype html>
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                            600: '#475569',
+                        }
+                    }
+                },
+            }
+        }
+    </script>
 </head>
+
 <body>
     {% include 'navbar.html' %}
     {% block content %}
     {% endblock content %}
-  <h1 class="text-3xl font-bold underline">
-    Hello World!
-  </h1>
+    <h1 class="text-3xl font-bold underline">
+        Hello World!
+    </h1>
 </body>
-    {% include 'footer.html' %}
+{% include 'footer.html' %}
+
 </html>
