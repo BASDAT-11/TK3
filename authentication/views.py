@@ -11,3 +11,5 @@ def user_login(request):
 def user_register(request):
     return render(request, 'register.html')
 
+    
+

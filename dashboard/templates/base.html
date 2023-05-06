@@ -21,17 +21,17 @@
             }
         }
     </script>
+    {% block meta %}
+    {% endblock meta %}
 </head>
 
 <body>
-    {% include 'navbar_atlet.html' %}
-    {% include 'navbar_pelatih.html' %}
-    {% include 'navbar_umpire.html' %}
+    {% include 'navbar.html' %}
+    <section id="body-wrapper" class="mt-6">
     {% block content %}
     {% endblock content %}
-    <h1 class="text-3xl font-bold underline">
-        Hello World!
-    </h1>
+    </section>
+    
 </body>
 {% include 'footer.html' %}
 
