@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',
+    'enrolled_event',
+    'daftar_sponsor',
+    'list_event',
 ]
 
 MIDDLEWARE = [
