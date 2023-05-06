@@ -20,5 +20,4 @@ sklearn==0.0.post4
 sqlparse==0.4.4
 tqdm==4.65.0
 virtualenv==20.23.0
-whitenoise==6.4.0
 zipp==3.15.0

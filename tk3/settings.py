@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard',
     'authentication',
+    'pertandingan',
+    'hasil_pertandingan',
 ]
 
 MIDDLEWARE = [

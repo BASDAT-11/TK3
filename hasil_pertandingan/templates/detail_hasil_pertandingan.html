@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            900: '#0F1112',
+                            800: '#151718',
+                            700: '#181A1E',
+                            600: '#55565C',
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    {% block meta %}
+    {% endblock meta %}
+</head>
+<main>
+
+    <div class="flex flex-col align-items-center justify-center  bg-gray-900 px-10 py-10">
+        <section id="perempat-final" style="display: block;">
+            <div class="py-4">
+                <h1 class="text-center text-2xl text-gray-900 dark:text-white font-semibold">HASIL PERTANDINGAN Japan
+                    Open</h1>
+            </div>
+            <div class="shadow overflow-hidden sm:rounded-lg">
+                <table class="min-w-full text-sm text-gray-400">
+
+                    <tr class="bg-green-800 bg-opacity-50">
+                        <td class="pl-4">
+                            Nama Event :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            Japan Open
+                        </td>
+
+                    </tr>
+                    <tr class="bg-green-800 bg-opacity-20">
+                        <td class="pl-4">
+                            Stadium :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            Musashino Forest Sport Plaza
+                        </td>
+
+                    </tr>
+                    <tr class="bg-green-800 bg-opacity-50">
+                        <td class="pl-4">
+                            Hadiah :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            350000
+                        </td>
+
+                    </tr>
+                    <tr class="bg-green-800 bg-opacity-20">
+                        <td class="pl-4">
+                            Kategori Superseries :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            S1000
+                        </td>
+
+                    </tr>
+                    <tr class="bg-green-800 bg-opacity-50">
+                        <td class="pl-4">
+                            Tanggal Mulai :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            2022-03-01
+                        </td>
+
+                    </tr>
+                    <tr class="bg-green-800 bg-opacity-20">
+                        <td class="pl-4">
+                            Tanggal Selesai :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            2022-04-01
+                        </td>
+
+                    </tr>
+                    <tr class="bg-green-800 bg-opacity-50">
+                        <td class="pl-4">
+                            Kapasitas :
+                        </td>
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            10000
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+            <div class="flex flex-col mt-6">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="shadow overflow-hidden sm:rounded-lg">
+                            <table class="min-w-full text-sm text-gray-400">
+                                <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                            Tahap
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                            Nama Tim
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-gray-800">
+
+                                    <tr class="bg-black bg-opacity-20">
+                                        <td class="pl-4">
+                                            Juara 1
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            A
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="pl-4">
+                                            Juara 2
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            B
+                                        </td>
+
+                                    </tr>
+                                    <tr class="bg-black bg-opacity-20">
+                                        <td class="pl-4">
+                                            Juara 3
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            D
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="pl-4">
+                                            Semifinal
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            E
+                                        </td>
+
+                                    </tr>
+                                    <tr class="bg-black bg-opacity-20">
+                                        <td class="pl-4">
+                                            Perempat Final
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            C
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            F
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            B
+                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            H
+                                        </td>
+
+                                        </td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+        </section>
+        <div class="py-4">
+            <a href="/hasil-pertandingan/"
+                class="px-3 py-2 text-sm font-medium text-center text-white bg-opacity-20 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Back
+            </a>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    </div>
+</main>
+
+</html>
