@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,9 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',
+<<<<<<< HEAD
     'enrolled_event',
     'daftar_sponsor',
     'list_event',
+=======
+    'authentication',
+    'pertandingan',
+    'hasil_pertandingan',
+>>>>>>> 126346b318fdcc44af3fe9e8dcaf6324b28f36f9
 ]
 
 MIDDLEWARE = [
@@ -58,7 +65,7 @@ ROOT_URLCONF = 'tk3.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +87,12 @@ WSGI_APPLICATION = 'tk3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / "db.sqlite3"),
+        'NAME': 'mydatabase',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'kawung.cs.ui.ac.id',
+        'PORT': '12122',
+        'CONN_MAX_AGE': 1800
     }
 }
 
@@ -125,3 +137,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
