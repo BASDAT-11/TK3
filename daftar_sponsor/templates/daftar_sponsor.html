@@ -1,32 +1,68 @@
+{% extends 'base.html' %}
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
+{% block content %}
+<nav class="bg-white dark:bg-blue-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <!--
+            <a href="https://flowbite.com/" class="flex items-center">
+                {% load static %}
+                <img src="{% static 'babadu_logo.png' %}" class="mr-3 h-6 sm:h-9" alt="Babadu logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Babadu</span>
+            </a>
+        -->
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Babadu</span>
+        <div class="flex md:order-2">
+            <button type="button"
+                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                Logout
+            </button>
+            <button data-collapse-toggle="navbar-sticky" type="button"
+                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-sticky" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        blue: {
-                            900: '#0F1112',
-                            800: '#151718',
-                            700: '#181A1E',
-                            600: '#55565C',
-                        }
-                    }
-                },
-            }
-        }
-    </script>
-    {% block meta %}
-    {% endblock meta %}
-</head>
-
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+            <ul
+                class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a href="#"
+                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tes
+                        Kualifikasi</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Daftar
+                        Event</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Enrolled
+                        Event</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Daftar
+                        Sponsor</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <body>
     <section class="bg-blue-700 dark:bg-blue-800">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -36,27 +72,46 @@
                 DAFTAR SPONSOR
             </a>
             <div
-                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-blue-700">
+                class="w-full bg-white rounded-lg border border-gray-200 shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <form class="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label for="nama"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Sponsor:</label>
-                            <input type="text" name="nama" id="nama" placeholder="Pilih Sponsor"
-                                class="bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div>
+                                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Please select...<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdownHover" class="z-10 hidden bg-gray-600 divide-y divide-gray-50 rounded-lg shadow w-44 dark:bg-grey-500">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                                        <li>
+                                          <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:text-white">Browsedrive</a>
+                                        </li>
+                                        <li>
+                                          <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:text-white">Meemm</a>
+                                        </li>
+                                        <li>
+                                          <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:text-white">Realbridge</a>
+                                        </li>
+                                        <li>
+                                          <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:text-white">Yoveo</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:text-white">Rooxo</a>
+                                          </li>
+                                      </ul>
+                                    </div>
+                                    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+                                    </div>
                         <div>
                             <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Mulai:</label>
                             <input type="date" name="date" id="date"
                                 class="bg-gray-50 border border-gray-300 text-gray-500 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name@company.com" required="">
+                                required="">
                         </div>
                         <div>
                             <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Selesai:</label>
                             <input type="date" name="date" id="date"
                                 class="bg-gray-50 border border-gray-300 text-gray-500 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name@company.com" required="">
+                                required="">
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-500 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SUBMIT</button>
@@ -68,5 +123,5 @@
         </div>
     </section>
 </body>
-
 </html>
+{% endblock content %}
