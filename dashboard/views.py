@@ -13,5 +13,3 @@ def base_page(request):
 
 def dashboard_page(request):
     return render(request, 'dashboard.html')
-
-

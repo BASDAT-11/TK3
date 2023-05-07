@@ -23,4 +23,5 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('pertandingan/', include('pertandingan.urls')),
     path('hasil-pertandingan/', include('hasil_pertandingan.urls')),
+    path('tes-kualifikasi/', include('tes_kualifikasi.urls')),
 ]
