@@ -26,5 +26,6 @@ urlpatterns = [
     path('enrolled_event/', include('enrolled_event.urls')),
     path('daftar_sponsor/', include('daftar_sponsor.urls')),
     path('list_event/', include('list_event.urls')),
-    path('daftar/', include('daftar.urls'))
+    path('daftar/', include('daftar.urls')),
+    path('tes-kualifikasi/', include('tes_kualifikasi.urls')),
 ]

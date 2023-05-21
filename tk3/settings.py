@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'pertandingan',
     'hasil_pertandingan',
     'daftar',
+    'tes_kualifikasi',
 ]
 
 MIDDLEWARE = [
