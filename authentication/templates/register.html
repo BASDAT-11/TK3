@@ -1,4 +1,5 @@
 {% load static %}
+{% load filter %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,7 @@
     {% endblock meta %}
 </head>
 
+{% block content %}
 <body class="overflow-scroll bg-gray-50 dark:bg-gray-900">
     <div class="overflow-scroll flex flex-col items-center justify-center px-6 py-8 h-full md:py-10">
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -40,19 +42,19 @@
                 <div
                     class="grid grid-cols-3 gap-x-2 text-sm text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                     <div>
-                        <button id="navigate-to-atlet"
+                        <button onclick="{{request.session['reg_atlet'] = True}}" id="navigate-to-atlet" value="reg-atlet"
                             class="navigate-button inline-block p-4 rounded-t-lg hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-900 dark:hover:text-gray-300">
                             Atlet
                         </button>
                     </div>
                     <div>
-                        <button id="navigate-to-pelatih"
+                        <button onclick="{{request.session['reg_pelatih'] = True}}" id="navigate-to-pelatih" value="reg-pelatih"
                             class="navigate-button inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 dark:hover:text-gray-300">
                             Pelatih
                         </button>
                     </div>
                     <div>
-                        <button id="navigate-to-umpire"
+                        <button id="navigate-to-umpire" value="reg-umpire"
                             class="navigate-button inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 dark:hover:text-gray-300">
                             Umpire
                         </button>
@@ -61,6 +63,7 @@
             </section>
             <div id="register-atlet" class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <form method="POST" class="space-y-4 md:space-y-6" action="">
+                    {% csrf token %}
                     <h1
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Daftar sebagai Atlet
@@ -83,9 +86,9 @@
                             placeholder="name@company.com" required="">
                     </div>
                     <div>
-                        <label for="nama"
+                        <label for="negara"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Negara</label>
-                        <input type="text" name="Negara" id="nama" placeholder="e.g. Indonesia"
+                        <input type="text" name="negara" id="negara" placeholder="e.g. Indonesia"
                             class="bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required="">
                     </div>
@@ -101,7 +104,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <input datepicker type="date" name="nama" id="nama" placeholder="Kevin Sanjaya"
+                            <input datepicker type="date" name="tanggal-lahir" id="tanggal-lahir" placeholder="Kevin Sanjaya"
                                 datepicker-autohide type="text"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Select date">
@@ -263,7 +266,7 @@
                         </div>
                     </div>
 
-                    <button type="submit"
+                    <button  type="submit"
                         class="w-full text-white bg-green-900 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create
                         an account</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
@@ -336,6 +339,7 @@
         });
 
         $('#navigate-to-atlet').click(function () {
+            var reg_role = document.getElementById("register-atlet").value;
             $('#register-atlet').show();
             $('#register-pelatih').css('display', 'none');
             $('#register-umpire').css('display', 'none');
@@ -359,3 +363,4 @@
 
 
 </html>
+{% endblock content %}
