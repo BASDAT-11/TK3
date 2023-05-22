@@ -32,10 +32,44 @@ def SQLlogin(nama, email):
     res = parse(cursor)
     return res
 
-def session_setter(request, role):
-    if role == 'atlet':
-        request.session['is_atlet'] = True
-    if role == 'pelatih':
-        request.session['is_pelatih'] = True
-    if role == 'umpire': 
-        request.session['is_umpire'] = True
+def SQLRegisterMember(id, nama, email):
+    
+    query =  '''INSERT INTO table_name (id, nama, email)
+        VALUES (%s, %s, %s);
+        '''
+             
+    cursor = connection.cursor()
+    cursor.execute("set search_path to babadu;")
+    cursor.execute(query, (id, nama, email))
+    connection.commit()
+    res = parse(cursor)
+    return res
+
+
+def SQLRegisterAtlet(id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin):
+    query =  '''INSERT INTO table_name (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin)
+        VALUES (%s, %s, %s, %s, %s, %s, %s);
+        '''
+             
+    cursor = connection.cursor()
+    cursor.execute("set search_path to babadu;")
+    cursor.execute(query, (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin))
+    connection.commit()
+    res = parse(cursor)
+    return res
+
+
+def SQLRegisterPelatih(id, tgl_mulai):
+    query =  '''INSERT INTO table_name (id, tgl_mulai)
+        VALUES (%s, %s);
+        '''
+             
+    cursor = connection.cursor()
+    cursor.execute("set search_path to babadu;")
+    cursor.execute(query, (id, tgl_mulai))
+    connection.commit()
+    res = parse(cursor)
+    return res
+
+
+

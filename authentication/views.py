@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse
 from django.db import connection
-from authentication.forms import LoginForm
+from authentication.forms import LoginForm, AtletForm, PelatihForm, UmpireForm
 
 from authentication.query import SQLlogin
+from authentication.register import atlet_register, pelatih_register
 
 
 def main_auth(request):
@@ -53,35 +54,42 @@ def user_register(request):
 
 def register_user(request):
     if request.method == 'POST':
-        nama = request.POST.get('nama')
-        email = request.POST.get('email')
-        negara = request.POST.get('negara')
-        if request.session['reg_atlet'] == 'atlet':
-            nama = request.POST.get('nama')
-            email = request.POST.get('email')
-            negara = request.POST.get('negara')
-        elif request.session['reg_pelatih'] == 'pelatih':
-            nama = request.POST.get('nama')
-            email = request.POST.get('email')
-            negara = request.POST.get('negara')
-            nama = request.POST.get('nama')
-            email = request.POST.get('email')
-
-        is_user_already_exist = User.objects.filter(username=username).exists()
-        if password_1 == password_2 and not is_user_already_exist:
-            user = User.objects.create_user(
-                username=username, password=password_2)
-            if user is not None:
-                user.save()
-                return redirect('main:login')
+        if "atlet-register" in request.POST:
+            form = AtletForm(request.POST)
+            nama = form.cleaned_data.get('nama')
+            email = form.cleaned_data.get('email')
+            negara = form.cleaned_data.get('negara')
+            tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
+            play_right = form.cleaned_data.get('play_right')
+            tinggi_badan = form.cleaned_data.get('tinggi_badan')
+            jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
+            register = atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
+            if register['success']:
+                return HttpResponseRedirect(reverse("authentication:user_login"))
             else:
-                messages.info(request, 'Ops! something went wrong')
-        elif password_1 != password_2:
-            messages.info(request, 'Password doesnt match')
-        elif is_user_already_exist:
-            messages.info(request, 'User already exist')
-        else:
-            messages.info(request, 'Ops! something went wrong')
-    form = {'register_form': RegisterForm()}
-    return render(request, 'register.html', form)
+                messages.info(request,register['message'])
+        
+        elif "pelatih-register" in request.POST:
+            form = AtletForm(request.POST)
+            nama = form.cleaned_data.get('nama')
+            email = form.cleaned_data.get('email')
+            tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
+            play_right = form.cleaned_data.get('play_right')
+            tinggi_badan = form.cleaned_data.get('tinggi_badan')
+            jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
+            register = pelatih_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
+            if register['success']:
+                return HttpResponseRedirect(reverse("authentication:user_login"))
+            else:
+                messages.info(request,register['message'])
+
+        
+    context = {
+        'atlet_form': AtletForm(),
+        'pelatih_form': PelatihForm(),
+        'umpire_form': UmpireForm(),
+    }
+    return render(request, 'register.html', context)
+
+
 

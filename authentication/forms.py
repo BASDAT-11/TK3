@@ -9,7 +9,7 @@ class LoginForm(UserCreationForm):
         attrs={'id': 'login-email', 'placeholder': 'Email'}))
 
 
-class RegisterAtletForm(UserCreationForm):
+class AtletForm(UserCreationForm):
     nama = forms.CharField(label='nama', widget=forms.TextInput(
         attrs={'id': 'register-nama', 'placeholder': 'Name'}))
     email = forms.CharField(label='email', widget=forms.EmailInput(
@@ -32,7 +32,7 @@ class RegisterAtletForm(UserCreationForm):
             ]))
 
 
-class RegisterPelatihForm(UserCreationForm):
+class PelatihForm(UserCreationForm):
     nama = forms.CharField(label='nama', widget=forms.TextInput(
         attrs={'id': 'register-nama', 'placeholder': 'Name'}))
     email = forms.CharField(label='email', widget=forms.EmailInput(
@@ -51,7 +51,7 @@ class RegisterPelatihForm(UserCreationForm):
         attrs={'type': 'date'}))
 
 
-class LoginUmpireForm(UserCreationForm):
+class UmpireForm(UserCreationForm):
     nama = forms.CharField(label='nama', widget=forms.TextInput(
         attrs={'id': 'register-nama', 'placeholder': 'Name'}))
     email = forms.CharField(label='email', widget=forms.EmailInput(
