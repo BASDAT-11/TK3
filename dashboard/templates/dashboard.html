@@ -1,10 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block meta %}
-<title>Home</title>
-{% endblock meta %}
-
+<!DOCTYPE html>
+<html lang="en">
 {% block content %}
+<main class="py-6">
+    <div class="flex flex-col align-items-center justify-content-center w-screen min-h-screen bg-gray-900 px-10 py-10">
+        <section id="perempat-final" style="display: block;">
+            <div class="py-4">
+                <h1 class="text-center text-2xl text-gray-900 dark:text-white font-semibold">PROFILE</h1>
+            </div>
+            <div class="grid grid-cols-3 gap-x-3 gap-y-3">
+                <div></div>
+                {% if request.session.is_atlet %}
+                <div
+                    class="max-w-screen-xl p-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white py-6 ">Profile Atlet</h5>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: Candide McOwan
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Indonesia
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: mcowan@gmail.com
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal lahir: 2001-09-01
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: Right
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tinggi badan: 180
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Laki-laki
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: Markus Horison
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Status: Qualified
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">World rank: 24
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Total poin: 45
+                    </p>
+                </div>
+                {% endif %}
+                {% if request.session.is_pelatih %}
+                <div
+                    class="max-w-screen-xl p-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Profile Pelatih</h5>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: Markus Horison
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Indonesia
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: markus@gmail.com
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Spesialisasi Kategori: Tunggal Putra
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal Mulai: 1987-09-01
+                    </p>
+                </div>
+                {% endif %}
+                {% if request.session.is_umpire %}
+                <div
+                    class="max-w-screen-xl p-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Profile Umpire</h5>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: Ryuji Haruno
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Denmark
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: ryuji@gmail.com
+                    </p>
+                </div>
+                {% endif %}
 
+            </div>
+
+        </section>
+    </div>
+    </div>
+    </div>
+
+    </div>
+</main>
+
+</html>
 {% endblock content %}
