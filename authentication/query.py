@@ -34,33 +34,33 @@ def SQLlogin(nama, email):
 
 def SQLRegisterMember(id, nama, email):
     
-    query =  '''INSERT INTO table_name (id, nama, email)
+    query =  '''INSERT INTO MEMBER (id, nama, email)
         VALUES (%s, %s, %s);
         '''
              
     cursor = connection.cursor()
     cursor.execute("set search_path to babadu;")
     cursor.execute(query, (id, nama, email))
+    
     connection.commit()
-    res = parse(cursor)
-    return res
+    connection.close()
 
 
 def SQLRegisterAtlet(id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin):
-    query =  '''INSERT INTO table_name (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin)
+    query =  '''INSERT INTO ATLET (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin)
         VALUES (%s, %s, %s, %s, %s, %s, %s);
         '''
              
     cursor = connection.cursor()
     cursor.execute("set search_path to babadu;")
     cursor.execute(query, (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin))
+
     connection.commit()
-    res = parse(cursor)
-    return res
+    connection.close()
 
 
 def SQLRegisterPelatih(id, tgl_mulai):
-    query =  '''INSERT INTO table_name (id, tgl_mulai)
+    query =  '''INSERT INTO PELATIH (id, tgl_mulai)
         VALUES (%s, %s);
         '''
              

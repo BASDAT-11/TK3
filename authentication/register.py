@@ -10,7 +10,7 @@ def atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan,
         id = uuid.uuid4()
         SQLRegisterMember(id, nama, email)
         SQLRegisterAtlet(id, tanggal_lahir, negara,
-                         play_right, tinggi_badan, jenis_kelamin)
+                         play_right, tinggi_badan, 0, jenis_kelamin)
     except InternalError as e:
         return {
             'success': False,
@@ -22,6 +22,21 @@ def atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan,
         }
     
 def pelatih_register(nama, email, tanggal_mulai):
+    try:
+        id = uuid.uuid4()
+        SQLRegisterMember(id, nama, email)
+        SQLRegisterPelatih(id, tanggal_mulai)
+    except InternalError as e:
+        return {
+            'success': False,
+            'message': str(e.args)
+        }
+    else:
+        return {
+            'success': True,
+        }
+    
+def umpire_register(nama, email, tanggal_mulai):
     try:
         id = uuid.uuid4()
         SQLRegisterMember(id, nama, email)

@@ -47,45 +47,44 @@ def user_login(request):
     context = {'login_form': LoginForm()}
     return render(request, 'login.html', context)
 
-
-def user_register(request):
-    return render(request, 'register.html')
-
-
 def user_register(request):
     if request.method == 'POST':
-        print('halos')
         if "atlet-register" in request.POST:
-            print('halo')
             form = AtletForm(request.POST)
-            nama = form.cleaned_data.get('nama')
-            email = form.cleaned_data.get('email')
-            negara = form.cleaned_data.get('negara')
-            tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
-            play_right = form.cleaned_data.get('play_right')
-            tinggi_badan = form.cleaned_data.get('tinggi_badan')
-            jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
-            register = atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
-            if register['success']:
-                return HttpResponseRedirect(reverse("authentication:user_login"))
-            else:
-                messages.info(request,register['message'])
+            print('x')
+            print(form.errors)
+            if form.is_valid():
+                nama = form.cleaned_data.get('nama')
+                email = form.cleaned_data.get('email')
+                negara = form.cleaned_data.get('negara')
+                tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
+                play_right = form.cleaned_data.get('play_right')
+                tinggi_badan = form.cleaned_data.get('tinggi_badan')
+                jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
+                register = atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
+                print('y')
+                if register['success']:
+                    return HttpResponseRedirect(reverse("authentication:user_login"))
+                else:
+                    messages.info(request,register['message'])
+                
         
         elif "pelatih-register" in request.POST:
             form = PelatihForm(request.POST)
-            nama = form.cleaned_data.get('nama')
-            email = form.cleaned_data.get('email')
-            tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
-            play_right = form.cleaned_data.get('play_right')
-            tinggi_badan = form.cleaned_data.get('tinggi_badan')
-            jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
-            register = pelatih_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
-            if register['success']:
-                return HttpResponseRedirect(reverse("authentication:user_login"))
-            else:
-                messages.info(request,register['message'])
+            if form.is_valid():
+                nama = form.cleaned_data.get('nama')
+                email = form.cleaned_data.get('email')
+                tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
+                play_right = form.cleaned_data.get('play_right')
+                tinggi_badan = form.cleaned_data.get('tinggi_badan')
+                jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
+                register = pelatih_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
+                if register['success']:
+                    return HttpResponseRedirect(reverse("authentication:user_login"))
+                else:
+                    messages.info(request,register['message'])
 
-    context = {
+    context = { 
         'atlet_form': AtletForm(),
         'pelatih_form': PelatihForm(),
         'umpire_form': UmpireForm(),
