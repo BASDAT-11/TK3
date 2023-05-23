@@ -52,9 +52,11 @@ def user_register(request):
     return render(request, 'register.html')
 
 
-def register_user(request):
+def user_register(request):
     if request.method == 'POST':
+        print('halos')
         if "atlet-register" in request.POST:
+            print('halo')
             form = AtletForm(request.POST)
             nama = form.cleaned_data.get('nama')
             email = form.cleaned_data.get('email')
@@ -70,7 +72,7 @@ def register_user(request):
                 messages.info(request,register['message'])
         
         elif "pelatih-register" in request.POST:
-            form = AtletForm(request.POST)
+            form = PelatihForm(request.POST)
             nama = form.cleaned_data.get('nama')
             email = form.cleaned_data.get('email')
             tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
@@ -83,7 +85,6 @@ def register_user(request):
             else:
                 messages.info(request,register['message'])
 
-        
     context = {
         'atlet_form': AtletForm(),
         'pelatih_form': PelatihForm(),
