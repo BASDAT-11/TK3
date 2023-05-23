@@ -40,14 +40,16 @@ class PelatihForm(Form):
         attrs={'id': 'register-email', 'placeholder': 'Email'}))
     negara = forms.CharField(label='negara', widget=forms.TextInput(
         attrs={'id': 'register-negara', 'placeholder': 'Negara'}))
-    kategori = forms.CharField(label='kategori', widget=forms.CheckboxSelectMultiple(
+    kategori = forms.MultipleChoiceField(
+        label='kategori',
+        widget=forms.CheckboxSelectMultiple,
         choices=[
-            ('tunggal-putra', 'Tunggal Putra'),
-            ('tunggal-putri', 'Tunggal Putri'),
-            ('ganda-putra', 'Ganda Putra'),
-            ('ganda-putri', 'Ganda Putri'),
-            ('ganda-campuran', 'Ganda campuran')
-        ]))
+            ('Tunggal Putra', 'Tunggal Putra'),
+            ('Tunggal Putri', 'Tunggal Putri'),
+            ('Ganda Putra', 'Ganda Putra'),
+            ('Ganda Putri', 'Ganda Putri'),
+            ('Ganda campuran', 'Ganda campuran')
+        ])
     tanggal_mulai = forms.DateField(label='tanggal-mulai', widget=forms.DateInput(
         attrs={'type': 'date'}))
 

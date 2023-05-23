@@ -41,7 +41,7 @@ def SQLRegisterMember(id, nama, email):
     cursor = connection.cursor()
     cursor.execute("set search_path to babadu;")
     cursor.execute(query, (id, nama, email))
-    
+
     connection.commit()
     connection.close()
 
@@ -59,17 +59,47 @@ def SQLRegisterAtlet(id, tgl_lahir, negara_asal, play_right, height, world_rank,
     connection.close()
 
 
-def SQLRegisterPelatih(id, tgl_mulai):
-    query =  '''INSERT INTO PELATIH (id, tgl_mulai)
+def SQLRegisterPelatih(id, tanggal_mulai, negara):
+    query =  '''INSERT INTO PELATIH (id, tanggal_mulai, negara)
+        VALUES (%s, %s, %s);
+        '''
+             
+    cursor = connection.cursor()
+    cursor.execute("set search_path to babadu;")
+    cursor.execute(query, (id, tanggal_mulai, negara))
+    
+    connection.commit()
+    connection.close()
+
+def SQLRegisterSpesialisasi(id, kategori):
+    for item in kategori:
+        print(item)
+        print(type(item))
+        
+        query =  f'''INSERT INTO PELATIH_SPESIALISASI (id_pelatih, id_spesialisasi)
+            SELECT '{id}', S.id
+            FROM SPESIALISASI S
+            WHERE S.spesialisasi = '{item}';
+            '''
+                
+        cursor = connection.cursor()
+        cursor.execute("set search_path to babadu;")
+        cursor.execute(query)
+    
+        connection.commit()
+        connection.close()
+
+def SQLRegisterUmpire(id, negara):
+    query =  '''INSERT INTO UMPIRE (id, negara)
         VALUES (%s, %s);
         '''
              
     cursor = connection.cursor()
     cursor.execute("set search_path to babadu;")
-    cursor.execute(query, (id, tgl_mulai))
+    cursor.execute(query, (id, negara))
+    
     connection.commit()
-    res = parse(cursor)
-    return res
+    connection.close()
 
 
 

@@ -6,7 +6,7 @@ from django.db import connection
 from authentication.forms import LoginForm, AtletForm, PelatihForm, UmpireForm
 
 from authentication.query import SQLlogin
-from authentication.register import atlet_register, pelatih_register
+from authentication.register import atlet_register, pelatih_register, umpire_register
 
 
 def main_auth(request):
@@ -51,8 +51,6 @@ def user_register(request):
     if request.method == 'POST':
         if "atlet-register" in request.POST:
             form = AtletForm(request.POST)
-            print('x')
-            print(form.errors)
             if form.is_valid():
                 nama = form.cleaned_data.get('nama')
                 email = form.cleaned_data.get('email')
@@ -62,7 +60,6 @@ def user_register(request):
                 tinggi_badan = form.cleaned_data.get('tinggi_badan')
                 jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
                 register = atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
-                print('y')
                 if register['success']:
                     return HttpResponseRedirect(reverse("authentication:user_login"))
                 else:
@@ -74,11 +71,26 @@ def user_register(request):
             if form.is_valid():
                 nama = form.cleaned_data.get('nama')
                 email = form.cleaned_data.get('email')
-                tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
-                play_right = form.cleaned_data.get('play_right')
-                tinggi_badan = form.cleaned_data.get('tinggi_badan')
-                jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
-                register = pelatih_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
+                negara = form.cleaned_data.get('negara')
+                kategori = form.cleaned_data.get('kategori')
+                tanggal_mulai = form.cleaned_data.get('tanggal_mulai')
+                register = pelatih_register(nama, email, negara, kategori, tanggal_mulai)
+                if register['success']:
+                    return HttpResponseRedirect(reverse("authentication:user_login"))
+                else:
+                    messages.info(request,register['message'])
+
+        elif "umpire-register" in request.POST:
+            form = UmpireForm(request.POST)
+            print('x')
+            print(form.errors)
+            if form.is_valid():
+                nama = form.cleaned_data.get('nama')
+                email = form.cleaned_data.get('email')
+                negara = form.cleaned_data.get('negara')
+                kategori = form.cleaned_data.get('kategori')
+                tanggal_mulai = form.cleaned_data.get('tanggal_mulai')
+                register = umpire_register(nama, email, negara)
                 if register['success']:
                     return HttpResponseRedirect(reverse("authentication:user_login"))
                 else:

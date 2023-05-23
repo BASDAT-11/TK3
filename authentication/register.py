@@ -2,7 +2,7 @@ import uuid
 
 from psycopg2 import InternalError
 
-from authentication.query import SQLRegisterAtlet, SQLRegisterMember, SQLRegisterPelatih
+from authentication.query import SQLRegisterAtlet, SQLRegisterMember, SQLRegisterPelatih, SQLRegisterSpesialisasi, SQLRegisterUmpire
 
 
 def atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin):
@@ -21,11 +21,12 @@ def atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan,
             'success': True,
         }
     
-def pelatih_register(nama, email, tanggal_mulai):
+def pelatih_register(nama, email, negara, kategori, tanggal_mulai):
     try:
         id = uuid.uuid4()
         SQLRegisterMember(id, nama, email)
-        SQLRegisterPelatih(id, tanggal_mulai)
+        SQLRegisterPelatih(id, tanggal_mulai, negara)
+        SQLRegisterSpesialisasi(id, kategori)
     except InternalError as e:
         return {
             'success': False,
@@ -36,11 +37,11 @@ def pelatih_register(nama, email, tanggal_mulai):
             'success': True,
         }
     
-def umpire_register(nama, email, tanggal_mulai):
+def umpire_register(nama, email, negara):
     try:
         id = uuid.uuid4()
         SQLRegisterMember(id, nama, email)
-        SQLRegisterPelatih(id, tanggal_mulai)
+        SQLRegisterUmpire(id, negara)
     except InternalError as e:
         return {
             'success': False,
