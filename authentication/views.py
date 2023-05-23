@@ -22,8 +22,10 @@ def user_login(request):
         request.session['is_pelatih'] = False
         request.session['is_umpire'] = False
 
-        user = SQLlogin(nama, email)[0]
-        if len(user) > 0:
+        user_login = SQLlogin(nama, email)
+
+        if len(user_login) > 0:
+            user = user_login[0]
             if user['role'] == 'atlet':
                 request.session['is_atlet'] = True
             if user['role'] == 'pelatih':
@@ -102,15 +104,22 @@ def user_register(request):
 
 def user_logout(request):
     try:
-        user = request.session['']
-        zip.getinfo('something')
+        user = request.session['user']
+        print(user[0])
+        request.session['user'] = None
+        request.session.clear()
+        request.session['is_atlet'] = False
+        request.session['is_pelatih'] = False
+        request.session['is_umpire'] = False
+        print('sukses!')
+        return HttpResponseRedirect(reverse("authentication:user_login"))
+    
     except KeyError:
-        print('Can not find "something"')
-
-    if "id" in request.session:
+        messages.info(request, "Belum login")
+        print('sukses!')
         request.session.clear()
         request.session['is_atlet'] = False
         request.session['is_pelatih'] = False
         request.session['is_umpire'] = False
         return HttpResponseRedirect(reverse("authentication:user_login"))
-    return HttpResponseRedirect(reverse("authentication:user_login"))
+
