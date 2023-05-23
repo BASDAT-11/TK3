@@ -18,29 +18,26 @@ def user_login(request):
         nama = request.POST.get('nama')
         email = request.POST.get('email')
 
-        user = SQLlogin(nama, email)
-        request.session['user'] = user
+        request.session['is_atlet'] = False
+        request.session['is_pelatih'] = False
+        request.session['is_umpire'] = False
 
+        user = SQLlogin(nama, email)[0]
         if len(user) > 0:
-            role = user[0]['role']
-
-            if role == 'atlet':
+            if user['role'] == 'atlet':
                 request.session['is_atlet'] = True
-                request.session['is_pelatih'] = False
-                request.session['is_umpire'] = False
-            if role == 'pelatih':
-                request.session['is_atlet'] = False
+            if user['role'] == 'pelatih':
                 request.session['is_pelatih'] = True
-                request.session['is_umpire'] = False
-            if role == 'umpire':
-                request.session['is_atlet'] = False
-                request.session['is_pelatih'] = False
+            if user['role'] == 'umpire':
                 request.session['is_umpire'] = True
 
             if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire']:
                 request.session['is_logged_in'] = True
                 response = HttpResponseRedirect(reverse("dashboard:base"))
                 return response
+            
+            request.session['user'] = user
+
         else:
             messages.info(request, 'Username atau Email salah')
 
@@ -103,5 +100,17 @@ def user_register(request):
     }
     return render(request, 'register.html', context)
 
+def user_logout(request):
+    try:
+        user = request.session['']
+        zip.getinfo('something')
+    except KeyError:
+        print('Can not find "something"')
 
-
+    if "id" in request.session:
+        request.session.clear()
+        request.session['is_atlet'] = False
+        request.session['is_pelatih'] = False
+        request.session['is_umpire'] = False
+        return HttpResponseRedirect(reverse("authentication:user_login"))
+    return HttpResponseRedirect(reverse("authentication:user_login"))
