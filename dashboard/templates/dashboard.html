@@ -18,21 +18,31 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white py-6 ">Profile Atlet</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ nama }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ user_logged_in.nama }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ negara }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara_asal }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ email_member }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ user_logged_in.email }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal lahir: {{ tanggal_lahir }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal lahir: {{ user_logged_in.tgl_lahir }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: {{ play }}
+                    {% if user_logged_in.play_right %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: Right Hand
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tinggi badan: {{ tinggi_badan }}
+                    {% else %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: Left Hand
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: {{ jenis_kelamin }}
+                    {% endif %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tinggi badan: {{ user_logged_in.height }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: {{ pelatih }}
+                    {% if user_logged_in.play_right %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Laki - laki
+                    </p>
+                    {% else %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Perempuan
+                    </p>
+                    {% endif %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: Markus Horison
                     </p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Status: {{ status }}
                     </p>
@@ -50,7 +60,7 @@
                     </a>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ nama }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Indonesia
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara }}
                     </p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ email_member }}
                     </p>
@@ -87,3 +97,4 @@
 
 </html>
 {% endblock content %}
+
