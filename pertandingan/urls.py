@@ -4,6 +4,7 @@ from pertandingan.views import *
 app_name = 'pertandingan'
 
 urlpatterns = [
-    path('', pertandingan, name='pertandingan'),
+    path('<str:key>/', pertandingan, name='pertandingan'),
 ]
+
 
