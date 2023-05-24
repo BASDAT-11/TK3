@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse
-from django.db import connection
+from django.db import connection, DatabaseError
 from authentication.forms import LoginForm, AtletForm, PelatihForm, UmpireForm
 
 from authentication.query import SQLlogin
@@ -61,6 +61,7 @@ def user_register(request):
                 tinggi_badan = form.cleaned_data.get('tinggi_badan')
                 jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
                 register = atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
+                print(register)
                 if register['success']:
                     return HttpResponseRedirect(reverse("authentication:user_login"))
                 else:
