@@ -1,6 +1,6 @@
 import uuid
 
-from psycopg2 import InternalError
+from psycopg2 import DatabaseError, InternalError
 
 from authentication.query import SQLRegisterAtlet, SQLRegisterMember, SQLRegisterPelatih, SQLRegisterSpesialisasi, SQLRegisterUmpire
 
@@ -16,11 +16,17 @@ def atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan,
             'success': False,
             'message': str(e.args)
         }
+    except DatabaseError as d:
+        return {
+            'success': False,
+            'message': str(d.args)
+        }
     else:
         return {
             'success': True,
         }
-    
+
+
 def pelatih_register(nama, email, negara, kategori, tanggal_mulai):
     try:
         id = uuid.uuid4()
@@ -36,7 +42,8 @@ def pelatih_register(nama, email, negara, kategori, tanggal_mulai):
         return {
             'success': True,
         }
-    
+
+
 def umpire_register(nama, email, negara):
     try:
         id = uuid.uuid4()
