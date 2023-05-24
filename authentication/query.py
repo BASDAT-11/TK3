@@ -7,7 +7,7 @@ def parse(cursor):
     return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 def SQLlogin(nama, email):
-    query =  '''SELECT M.nama, M.email,
+    query =  '''SELECT M.id, M.nama, M.email,
         CASE
         WHEN A.play_right IS NULL AND P.tanggal_mulai IS NULL
         THEN 'umpire'
