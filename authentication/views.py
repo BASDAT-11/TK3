@@ -23,9 +23,10 @@ def user_login(request):
         request.session['is_umpire'] = False
 
         user_login = SQLlogin(nama, email)
-
+        print(user_login)
         if len(user_login) > 0:
             user = user_login[0]
+            print('ok')
             if user['role'] == 'atlet':
                 request.session['is_atlet'] = True
             if user['role'] == 'pelatih':
@@ -33,12 +34,12 @@ def user_login(request):
             if user['role'] == 'umpire':
                 request.session['is_umpire'] = True
 
+            request.session['user'] = user
+            print(request.session['user'])
+
             if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire']:
-                request.session['is_logged_in'] = True
                 response = HttpResponseRedirect(reverse("dashboard:base"))
                 return response
-            
-            request.session['user'] = user
 
         else:
             messages.info(request, 'Username atau Email salah')
