@@ -2,13 +2,9 @@ import json
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from django.db import connection
-=======
 from django.urls import reverse
 
 from dashboard.query import SQLprofileAtlet, SQLprofilePelatih, SQLprofileUmpire
->>>>>>> 252c34d090809ea85078d3d49203cc80f5a31371
 
 # Create your views here.
 # @login_required(login_url='/auth/login/')
