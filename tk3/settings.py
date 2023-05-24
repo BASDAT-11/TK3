@@ -39,9 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',
+    'enrolled_event',
+    'daftar_sponsor',
+    'list_event',
     'authentication',
     'pertandingan',
     'hasil_pertandingan',
+    'daftar',
+    'tes_kualifikasi',
 ]
 
 MIDDLEWARE = [
@@ -77,16 +82,17 @@ WSGI_APPLICATION = 'tk3.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'kawung.cs.ui.ac.id',
-        'PORT': '12122',
-        'CONN_MAX_AGE': 1800
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'OPTIONS': {
+            'options': '-c search_path=babadu'
+        },
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': ' ',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
