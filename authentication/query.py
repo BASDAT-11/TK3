@@ -7,7 +7,7 @@ def parse(cursor):
     return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 def SQLlogin(nama, email):
-    query =  '''SELECT M.id, M.nama, M.email,
+    query =  f'''SELECT M.id, M.nama, M.email,
         CASE
         WHEN A.play_right IS NULL AND P.tanggal_mulai IS NULL
         THEN 'umpire'
@@ -23,12 +23,12 @@ def SQLlogin(nama, email):
         FULL OUTER JOIN PELATIH P ON M.id = P.id
         FULL OUTER JOIN UMPIRE U ON M.id = U.id
         
-        WHERE M.nama =%s AND M.email =%s;
+        WHERE M.nama = '{nama}' AND M.email = '{email}';
         '''
              
     cursor = connection.cursor()
     cursor.execute("set search_path to babadu;")
-    cursor.execute(query, (nama, email))
+    cursor.execute(query)
     res = parse(cursor)
     return res
 
