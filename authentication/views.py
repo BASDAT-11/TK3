@@ -23,7 +23,7 @@ def user_login(request):
         request.session['is_umpire'] = False
 
         user_login = SQLlogin(nama, email)
-
+        print(user_login)
         if len(user_login) > 0:
             user = user_login[0]
             if user['role'] == 'atlet':
@@ -34,6 +34,7 @@ def user_login(request):
                 request.session['is_umpire'] = True
 
             request.session['user'] = user
+            request.session['user']['id'] = str(request.session['user']['id'])
             print(request.session['user'])
 
             if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire']:
