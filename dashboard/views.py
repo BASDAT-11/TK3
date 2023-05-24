@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from dashboard.query import SQLprofileAtlet
+from dashboard.query import SQLprofileAtlet, SQLprofilePelatih, SQLprofileUmpire
 
 # Create your views here.
 # @login_required(login_url='/auth/login/')
@@ -21,16 +21,15 @@ def dashboard_page(request):
     if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire']:
         if request.session['user']['role'] =='atlet':
             user_logged_in = SQLprofileAtlet(request.session['user']['id'])
-            print(user_logged_in)
         elif request.session['user']['role'] =='pelatih':
-            user_logged_in = SQLprofileAtlet(request.session['user']['id'])
+            user_logged_in = SQLprofilePelatih(request.session['user']['id'])
         elif request.session['user']['role'] =='umpire':
-            user_logged_in = SQLprofileAtlet(request.session['user']['id'])
+            user_logged_in = SQLprofileUmpire(request.session['user']['id'])
         else:
             return HttpResponseRedirect(reverse("authentication:user_login"))
     else:
         return HttpResponseRedirect(reverse("authentication:user_login"))
-    
+
     context = {
         'user_logged_in' : user_logged_in[0]
     }

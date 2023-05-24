@@ -88,8 +88,6 @@ def user_register(request):
                 nama = form.cleaned_data.get('nama')
                 email = form.cleaned_data.get('email')
                 negara = form.cleaned_data.get('negara')
-                kategori = form.cleaned_data.get('kategori')
-                tanggal_mulai = form.cleaned_data.get('tanggal_mulai')
                 register = umpire_register(nama, email, negara)
                 if register['success']:
                     return HttpResponseRedirect(reverse("authentication:user_login"))

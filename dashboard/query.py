@@ -25,7 +25,7 @@ def SQLprofilePelatih(id):
     query =  f'''SELECT *
         FROM MEMBER M, PELATIH P
         
-        WHERE M.id = {id} AND M.id = P.id;
+        WHERE M.id = '{id}' AND M.id = P.id;
         '''
              
     cursor = connection.cursor()
@@ -39,7 +39,7 @@ def SQLprofileUmpire(id):
     query =  f'''SELECT *
         FROM MEMBER M, UMPIRE U
         
-        WHERE M.id = {id} AND M.id = U.id;
+        WHERE M.id = '{id}' AND M.id = U.id;
         '''
              
     cursor = connection.cursor()
