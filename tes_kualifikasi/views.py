@@ -7,7 +7,7 @@ def parse(cursor):
     return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 def tes_kualifikasi(request):
-    return render(request, 'tes_kualifikasi.html')
+    return redirect('/dashboard/')
 
 def soal_tes_kualifikasi(request):
     cursor = connection.cursor()
@@ -49,19 +49,18 @@ def soal_tes_kualifikasi(request):
             # Lakukan operasi yang sesuai
             result_tes += 1
 
-        cursor.execute("SELECT id FROM MEMBER WHERE email= 'cpollard5@berkeley.edu' ")
+
+        email = request.session['user']['email']
+        cursor.execute("SELECT id FROM MEMBER WHERE email=%s", (email,))
         id_atlet = cursor.fetchone()
 
-
-
-        #BELUM KELAR#
         if result_tes >= 4:
             cursor.execute("INSERT INTO ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI VALUES (%s, %s, %s, %s, %s, %s)", 
-                           [id_atlet, context['tahun'], context['batch'], 
+                           [id_atlet[0], context['tahun'], context['batch'], 
                             context['tempat'], context['tanggal'], True])
         else:
             cursor.execute("INSERT INTO ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI VALUES (%s, %s, %s, %s, %s, %s)", 
-                           [id_atlet, context['tahun'], context['batch'], 
+                           [id_atlet[0], context['tahun'], context['batch'], 
                             context['tempat'], context['tanggal'], False])
         
         cursor.execute('SELECT * FROM ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI')
@@ -70,22 +69,19 @@ def soal_tes_kualifikasi(request):
     return render(request, 'soal_tes_kualifikasi.html')
 
 def create_tes_kualifikasi(request):
-
     cursor = connection.cursor()
     if (request.method == 'POST'):
         if (request.POST['tahun'] == "" or request.POST['batch'] == "" or request.POST['tempat-pelaksanaan'] == '' or
             request.POST['tanggal-pelaksanaan'] == '' ):
             message = "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"
-            print('asup')
             return render (request, 'create_tes_kualifikasi.html', {'message':message})
         
         else:
-            # cursor.execute("INSERT INTO UJIAN_KUALIFIKASI VALUES (%s, %s, %s, %s)", 
-            #                [request.POST['tahun'], request.POST['batch'], request.POST['tempat-pelaksanaan'], request.POST['tanggal-pelaksanaan']])
+            cursor.execute("INSERT INTO UJIAN_KUALIFIKASI VALUES (%s, %s, %s, %s)", 
+                           [request.POST['tahun'], request.POST['batch'], request.POST['tempat-pelaksanaan'], request.POST['tanggal-pelaksanaan']])
             
             cursor.execute('SELECT * FROM UJIAN_KUALIFIKASI')
             result = parse(cursor)
-            print (result)
                     
             return render(request, 'list_tes_kualifikasi.html', {'result': result, 'role': request.session['is_atlet']})
         
@@ -95,8 +91,6 @@ def list_tes_kualifikasi(request):
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM UJIAN_KUALIFIKASI')
     result = parse(cursor)
-    print(result)
-    print("=================")
 
     if (request.method == 'POST'):
         tahun= request.POST['tahun']
@@ -122,8 +116,4 @@ def riwayat_tes_kualifikasi(request):
     cursor.execute('SELECT nama,tahun,batch,tempat,tanggal, hasil_lulus FROM MEMBER, ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI WHERE id_atlet = id')
     result = parse(cursor)
 
-    cursor.execute('SELECT nama FROM ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI,MEMBER where id_atlet = id')
-    result2 = parse(cursor)
-    print(result2)
-
-    return render(request, 'riwayat_tes_kualifikasi.html', {'result': result, 'result2':result2, 'role': request.session['is_umpire']})
+    return render(request, 'riwayat_tes_kualifikasi.html', {'result': result, 'role': request.session['is_umpire']})

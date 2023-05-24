@@ -42,7 +42,7 @@
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Perempuan
                     </p>
                     {% endif %}
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: Markus Horison
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: -
                     </p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Status: {{ status }}
                     </p>
@@ -58,11 +58,11 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Profile Pelatih</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ nama }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ user_logged_in.nama }}
                     </p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ email_member }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ user_logged_in.email }}
                     </p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Spesialisasi Kategori: {{ spesialisasi }}
                     </p>
@@ -76,11 +76,11 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Profile Umpire</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ nama }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ user_logged_in.nama }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ negara }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ email_member }}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ user_logged_in.email }}
                     </p>
                 </div>
                 {% endif %}
