@@ -23,10 +23,9 @@ def user_login(request):
         request.session['is_umpire'] = False
 
         user_login = SQLlogin(nama, email)
-        print(user_login)
+
         if len(user_login) > 0:
             user = user_login[0]
-            print('ok')
             if user['role'] == 'atlet':
                 request.session['is_atlet'] = True
             if user['role'] == 'pelatih':
@@ -38,6 +37,7 @@ def user_login(request):
             print(request.session['user'])
 
             if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire']:
+                request.session['is_logged_in'] = True
                 response = HttpResponseRedirect(reverse("dashboard:base"))
                 return response
 
@@ -82,7 +82,6 @@ def user_register(request):
 
         elif "umpire-register" in request.POST:
             form = UmpireForm(request.POST)
-            print('x')
             print(form.errors)
             if form.is_valid():
                 nama = form.cleaned_data.get('nama')
@@ -106,18 +105,17 @@ def user_register(request):
 def user_logout(request):
     try:
         user = request.session['user']
-        print(user[0])
+        request.session['is_logged_in'] = False
         request.session['user'] = None
         request.session.clear()
         request.session['is_atlet'] = False
         request.session['is_pelatih'] = False
         request.session['is_umpire'] = False
-        print('sukses!')
+
         return HttpResponseRedirect(reverse("authentication:user_login"))
     
     except KeyError:
         messages.info(request, "Belum login")
-        print('sukses!')
         request.session.clear()
         request.session['is_atlet'] = False
         request.session['is_pelatih'] = False
