@@ -1,0 +1,95 @@
+{% load static %}
+{% load pertandingan_filter %}
+{% load filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            900: '#0F1112',
+                            800: '#151718',
+                            700: '#181A1E',
+                            600: '#55565C',
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    {% block meta %}
+    {% endblock meta %}
+</head>
+
+<main>
+    <div class="flex flex-col align-items-center justify-center w-screen min-h-screen bg-gray-900 px-10 py-10">
+        <div class="py-4">
+            <a href="/dashboard/"
+                class="px-3 py-2 text-sm font-medium text-center text-white bg-opacity-20 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Back To Event
+            </a>
+        </div>
+        <div>
+            <section id="semi-final">
+                <h1 class="text-center text-lg text-gray-400 font-medium">PERTANDINGAN QUARTER-FINAL</h1>
+                <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
+            </section>
+        </div>
+        <div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <table class="min-w-full text-sm text-gray-400 w-full">
+                    <thead class="bg-gray-800 text-xs uppercase font-medium">
+                        <tr class="w-full grid grid-cols-8 gap-x-2">
+                            <th class="flex flex-wrap p-4 items-center justify-center col-span-2">
+                                Tim 1
+                            </th>
+                            <th class="flex flex-wrap p-4 items-center justify-center col-span-2">
+                                Tim 2
+                            </th>
+                            <th class="flex flex-wrap p-4 items-center justify-center col-span-2">
+                                Score Tim 1
+                            </th>
+                            <th class="flex flex-wrap p-4 items-center justify-center col-span-2">
+                                Score Tim 2
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="bg-gray-800">
+                        {% for item in content %}
+                        <tr class="w-full bg-black bg-opacity-20 grid grid-cols-8 p-2 gap-x-2">
+                            <td class="flex flex-wrap items-center col-span-2">
+                                {{ item.1.nama }}
+                            </td>
+                            <td class="flex flex-wrap items-center col-span-2">
+                                {{ item.2.nama }}
+                            </td>
+                            <td class="flex flex-wrap items-center col-span-2">
+                                {{ item.3.atlet_score_kiri | addclass:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" }}
+                            </td>
+                            <td class="flex flex-wrap items-center col-span-2">
+                                {{ item.3.atlet_score_kanan | addclass:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button 
+                    type="submit"
+                    class="w-full text-white btn-primary hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    NEXT
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
