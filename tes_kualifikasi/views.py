@@ -13,6 +13,9 @@ def soal_tes_kualifikasi(request):
     cursor = connection.cursor()
     context = request.session.get('my_context')
     
+    cursor.execute('SELECT (SELECT MAX(world_rank) FROM ATLET_KUALIFIKASI) AS max_world_rank, (SELECT MAX(world_tour_rank) FROM ATLET_KUALIFIKASI) AS max_world_tour_rank;')
+    atlet_kualifikasi= cursor.fetchone()
+
     result_tes = 0
     if request.method == 'POST':
 
@@ -55,13 +58,16 @@ def soal_tes_kualifikasi(request):
         id_atlet = cursor.fetchone()
 
         if result_tes >= 4:
-            cursor.execute("INSERT INTO ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI VALUES (%s, %s, %s, %s, %s, %s)", 
-                           [id_atlet[0], context['tahun'], context['batch'], 
-                            context['tempat'], context['tanggal'], True])
+            cursor.execute("INSERT INTO ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI (id_atlet, tahun, batch, tempat, tanggal, hasil_lulus) SELECT %s, %s, %s, %s, %s, %s WHERE NOT EXISTS (SELECT 1 FROM ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI WHERE id_atlet = %s AND tahun = %s AND batch = %s AND tempat = %s AND tanggal = %s)",
+               [id_atlet[0], context['tahun'], context['batch'], context['tempat'], context['tanggal'], True, id_atlet[0], context['tahun'], context['batch'], context['tempat'], context['tanggal']])
+
+            
+            cursor.execute("INSERT INTO ATLET_KUALIFIKASI (id_atlet, world_rank, world_tour_rank) SELECT %s, %s, %s WHERE NOT EXISTS (SELECT 1 FROM ATLET_KUALIFIKASI WHERE id_atlet = %s)", (id_atlet[0], atlet_kualifikasi[0]+1, atlet_kualifikasi[1]+1, id_atlet[0]))
+
         else:
-            cursor.execute("INSERT INTO ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI VALUES (%s, %s, %s, %s, %s, %s)", 
-                           [id_atlet[0], context['tahun'], context['batch'], 
-                            context['tempat'], context['tanggal'], False])
+            cursor.execute("INSERT INTO ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI (id_atlet, tahun, batch, tempat, tanggal, hasil_lulus) SELECT %s, %s, %s, %s, %s, %s WHERE NOT EXISTS (SELECT 1 FROM ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI WHERE id_atlet = %s AND tahun = %s AND batch = %s AND tempat = %s AND tanggal = %s)",
+               [id_atlet[0], context['tahun'], context['batch'], context['tempat'], context['tanggal'], False, id_atlet[0], context['tahun'], context['batch'], context['tempat'], context['tanggal']])
+
         
         cursor.execute('SELECT * FROM ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI')
         return redirect('/tes-kualifikasi/riwayat/')
@@ -115,5 +121,6 @@ def riwayat_tes_kualifikasi(request):
     cursor = connection.cursor()
     cursor.execute('SELECT nama,tahun,batch,tempat,tanggal, hasil_lulus FROM MEMBER, ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI WHERE id_atlet = id')
     result = parse(cursor)
+    print (result)
 
     return render(request, 'riwayat_tes_kualifikasi.html', {'result': result, 'role': request.session['is_umpire']})
