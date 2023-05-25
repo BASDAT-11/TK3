@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'hasil_pertandingan',
     'daftar',
     'tes_kualifikasi',
+    'partai_kompetisi_event',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,7 @@ DATABASES = {
         },
         'NAME': 'postgres',
         'USER': 'postgres',
+
         'PASSWORD': 'Babadu11mantap',
         'HOST': 'db.rbxkythxjxxnxhppnvph.supabase.co',
         'PORT': '5432'

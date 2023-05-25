@@ -24,6 +24,7 @@ urlpatterns = [
     path('pertandingan/', include('pertandingan.urls')),
     path('hasil-pertandingan/', include('hasil_pertandingan.urls')),
     path('enrolled_event/', include('enrolled_event.urls')),
+    path('partai_kompetisi_event/', include('partai_kompetisi_event.urls')),
     path('daftar_sponsor/', include('daftar_sponsor.urls')),
     path('list_event/', include('list_event.urls')),
     path('daftar/', include('daftar.urls')),
