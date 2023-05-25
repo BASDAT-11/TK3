@@ -6,8 +6,7 @@ from enrolled_event.query import *
 
 
 def show_enrolled_event(request):
-    nama = request.session['user']['nama']
-    daftar_enrolled_event = show_enrolled_event(nama)
+    daftar_enrolled_event = show_enrolled_event(request.session['user']['nama'])
     messages.get_messages(request)
 
     if daftar_enrolled_event != None:
@@ -17,8 +16,7 @@ def show_enrolled_event(request):
         
 
 def unenroll(request, nama_event, tahun_event):
-    nama_atlet = request.session['user']['nama']
-    result = unenroll_event(nama_atlet, nama_event, tahun_event)
+    result = unenroll_event(request.session['user']['nama'], nama_event, tahun_event)
     if result != None:
         messages.error(request, result)
         return redirect('/enrolled_event')

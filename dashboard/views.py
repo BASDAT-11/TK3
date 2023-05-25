@@ -31,11 +31,35 @@ def dashboard_page(request):
                 return HttpResponseRedirect(reverse("authentication:user_login"))
         else:
             return HttpResponseRedirect(reverse("authentication:user_login"))
+
+    else:
+        return HttpResponseRedirect(reverse("authentication:user_login"))
+    
+    status="Not Qualified"
+
+    cursor.execute("SELECT hasil_lulus FROM ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI WHERE id_atlet=%s", (request.session['user']['id'],))
+    hasil_lulus = cursor.fetchone()
+    if (hasil_lulus is not None):
+        if(hasil_lulus[0] == True):
+            status="Qualified"
+    
+    world_rank = "-"
+    cursor.execute("SELECT world_rank FROM ATLET_KUALIFIKASI WHERE id_atlet=%s", (request.session['user']['id'],))
+    res_world_rank = cursor.fetchone()
+    if (res_world_rank is not None):
+        world_rank = res_world_rank[0]
+
+    print ("TEST")
+    print(user_logged_in)
+
+
     except KeyError:
         return HttpResponseRedirect(reverse("authentication:main_auth"))
-    
+
     context = {
-        'user_logged_in' : user_logged_in[0]
+        'user_logged_in' : user_logged_in[0],
+        'status': status,
+        'world_rank': world_rank
     }
 
     if (request.session['is_atlet']):

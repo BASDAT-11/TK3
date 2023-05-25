@@ -124,6 +124,10 @@ def user_logout(request):
         request.session['is_atlet'] = False
         request.session['is_pelatih'] = False
         request.session['is_umpire'] = False
+        
         return HttpResponseRedirect(reverse("authentication:user_login"))
+
+        return HttpResponseRedirect(reverse("authentication:user_login"))
+
 
 

@@ -93,34 +93,27 @@
                                             Kategori
                                         </th>
                                         <th class="px-6 py-3 text-left tracking-wider">
-                                            Kapasitas
-                                        </th>
-                                        <th class="px-6 py-3 text-left tracking-wider">
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-gray-800">
+                                    {% for data in list %}
                                     <tr class="whitespace-nowrap">
                                         <td class="px-6 py-4 text-sm text-gray-500">
-                                            EventA
+                                            {{data.nama_event}}
                                         </td>
                                         <td class="whitespace-nowrap">
                                             <div class="px-6 py-4 text-sm text-gray-500">
-                                            Rp 5.000.000
+                                            {{data.total_hadiah}}
                                             </div>
                                         </td>
                                         <td class="whitespace-nowrap">
                                             <div class="px-6 py-4 text-sm text-gray-500">
-                                            12-04-2023
-                                            </div>
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            S200
+                                            {{data.tgl_mulai}}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <div class="text-sm text-gray-500">3/8</div>
+                                            <div class="text-sm text-gray-500">{{data.kategori_superseries}}</div>
                                         </td>
                                         <td class="px-6 py-3">
                                             <span class="sm:ml-3">
@@ -130,31 +123,7 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr class="whitespace-nowrap">
-                                        <td class="px-6 py-4 text-sm text-gray-500">
-                                            EventB
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            Rp 4.000.000
-                                            </div>
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            27-07-2023
-                                            </div>
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            S100
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-gray-500">8/8</div>
-                                        </td>
-                                        <th class="px-6 py-3 text-left tracking-wider">
-                                        </th>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                             </div>
