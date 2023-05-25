@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+
+<main class="py-6">
+    <section id="perempat-final" style="display: block;">
+    <div class="flex flex-col align-items-center justify-content-center w-screen min-h-screen bg-gray-900 px-10 py-10">
+            <div class="py-4">
+                <h1 class="text-center text-2xl text-gray-900 dark:text-white font-semibold">LIST EVENT</h1>
+            </div>
+                    <div class="container flex justify-center">
+                        <div class="flex flex-col">
+                            <div class="overflow-x-auto">
+                                    <div class="shadow overflow-hidden sm:rounded-lg">
+                    <div class="container flex justify-center mx-auto pt-4">
+                        <div class="flex flex-col">
+                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div class="shadow overflow-hidden sm:rounded-lg">
+                                        <table class="min-w-full text-sm text-gray-400">
+                                            <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                            <tr>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Event
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Tahun
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Stadium
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Jenis Partai
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Superseries
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Tanggal Mulai
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Tanggal Selesai
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Kapasitas
+                                                </th>
+                                                <th class="px-6 py-3 text-left tracking-wider">
+                                                    Kapasitas Terisi
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-gray-800">
+                                            {% for attr in list_event %}
+                                            <tr class="whitespace-nowrap">
+                                                <td class="px-2 py-4 text-sm text-gray-500">
+                                                    <div class="px-6 py-4 text-sm text-gray-500">
+                                                        {{ attr.nama_event }}
+                                                    </div>
+                                                </td>
+                                                <td class="px-2 py-4">
+                                                    <div class="px-6 py-4 text-sm text-gray-500">
+                                                        {{ attr.tahun }}
+                                                    </div>
+                                                </td>
+                                                <td class="px-2 py-4">
+                                                    <div class="text-sm text-gray-500">{{ attr.nama_stadium }}</div>
+                                                </td>
+                                                <td class="px-2 py-4">
+                                                    <div class="text-sm text-gray-500">{{ attr.jenis_partai }}</div>
+                                                </td>
+                                                <td class="px-2 py-4 text-sm text-gray-500">
+                                                    {{ attr.kategori_superseries }}
+                                                </td>
+                                                <td class="px-2 py-4 text-sm text-gray-500">
+                                                    {{ attr.tgl_mulai }}
+                                                </td>
+                                                <td class="px-2 py-4 text-sm text-gray-500">
+                                                    {{ attr.tgl_selesai }}
+                                                </td>
+                                                <td class="px-2 py-4 text-sm text-gray-500">
+                                                    {{ attr.kapasitas }}
+                                                </td>
+                                                <td class="px-2 py-4 text-sm text-gray-500">
+                                                    {{ attr.kapasitas_terisi }}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                    <div class="flex flex-col d-grid mt-1 bg-gray-800">
+                                        <button class="btn btn-primary btn-next p-3 text-sm uppercase font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                            data-section="hasil-pertandingan" type="submit"><a href="/hasil-pertandingan/">Mulai</a></button>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        </div>
+    </section>
+</body>
+</html>
+{% endblock content %}

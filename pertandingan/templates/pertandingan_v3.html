@@ -1,0 +1,403 @@
+{% load static %}
+{% load pertandingan_filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            900: '#0F1112',
+                            800: '#151718',
+                            700: '#181A1E',
+                            600: '#55565C',
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    {% block meta %}
+    {% endblock meta %}
+</head>
+
+<main>
+    <div class="flex flex-col align-items-center justify-center w-screen min-h-screen bg-gray-900 px-10 py-10">
+        <div class="py-4">
+            <a href="/dashboard/"
+                class="px-3 py-2 text-sm font-medium text-center text-white bg-opacity-20 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Back To Event
+            </a>
+        </div>
+        <div>
+            <section id="perempat-final">
+                <form method="POST" action="" class="space-y-4 md:space-y-6">
+                    {% csrf_token %}
+
+
+                    <div class="shadow overflow-hidden sm:rounded-lg">
+
+                        <table class="min-w-full text-sm text-gray-400">
+                            <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                        Tim 1
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                        Tim 2
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                        Skor Tim 1
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                        Skor Tim 2
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="bg-gray-800">
+                                <tr class="bg-black bg-opacity-20">
+                                    <td class="flex px-6 py-4 whitespace-nowrap">
+                                        {{versus.0.id_atlet_kualifikasi}}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{versus.1.id_atlet_kualifikasi}}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button id="btn-dec-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'decrement')" class="btn btn-outline-primary minus-btn" data-team="1" data-row="1">-</button>
+                                        <span id="score-tim_1-{{forloop.counter0}}" class="score-text-tim1" data-score="0">0</span>
+                                        <button id="btn-inc-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'increment')" class="btn btn-outline-primary plus-btn" data-team="1" data-row="1">+</button>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button id="btn-dec-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'decrement')" class="btn btn-outline-primary minus-btn" data-team="1" data-row="1">-</button>
+                                        <span id="score-tim_1-{{forloop.counter0}}" class="score-text-tim1" data-score="0">0</span>
+                                        <button id="btn-inc-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'increment')" class="btn btn-outline-primary plus-btn" data-team="1" data-row="1">+</button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-black bg-opacity-20">
+                                    <td class="flex px-6 py-4 whitespace-nowrap">
+                                        {{versus.2.id_atlet_kualifikasi}}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{versus.3.id_atlet_kualifikasi}}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button id="btn-dec-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'decrement')" class="btn btn-outline-primary minus-btn" data-team="1" data-row="1">-</button>
+                                        <span id="score-tim_1-{{forloop.counter0}}" class="score-text-tim1" data-score="0">0</span>
+                                        <button id="btn-inc-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'increment')" class="btn btn-outline-primary plus-btn" data-team="1" data-row="1">+</button>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button id="btn-dec-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'decrement')" class="btn btn-outline-primary minus-btn" data-team="1" data-row="1">-</button>
+                                        <span id="score-tim_1-{{forloop.counter0}}" class="score-text-tim1" data-score="0">0</span>
+                                        <button id="btn-inc-score-tim_1-{{forloop.counter0}}" onclick="changeScore('{{forloop.counter0}}', 'tim_1', 'increment')" class="btn btn-outline-primary plus-btn" data-team="1" data-row="1">+</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="flex flex-col d-grid mt-1 bg-gray-800">
+                            <button class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
+                                id="btnNext" data-section="semi-final" type="submit" name="submit-quarter">Next</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section id="semi-final">
+                <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan SEMIFINAL</h1>
+                <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
+                <div class="flex flex-col mt-6">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden sm:rounded-lg">
+                                <table class="min-w-full text-sm text-gray-400">
+                                    <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                        <tr>
+                                            <th></th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 2
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 2
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-gray-800">
+
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="pl-4">
+                                                1
+                                            </td>
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                A
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                B
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                11
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                3
+
+
+                                        </tr>
+                                        <tr>
+                                            <td class="pl-4">
+                                                2
+                                            </td>
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                C
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                D
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                9
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                6
+                                            </td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                                <div class="flex flex-col d-grid mt-1 bg-gray-800">
+                                    <button
+                                        class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
+                                        data-section="juara-3" type="submit" name="submit-semi">Next</button>
+                                </div>
+                            </div>
+            </section>
+            <section id="juara-3">
+                <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan Juara 3</h1>
+                <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
+                <div class="flex flex-col mt-6">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden sm:rounded-lg">
+                                <table class="min-w-full text-sm text-gray-400">
+                                    <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                        <tr>
+                                            <th></th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 2
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 2
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-gray-800">
+
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="pl-4">
+                                                1
+                                            </td>
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                A
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                B
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                11
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                3
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="flex flex-col d-grid mt-1 bg-gray-800">
+                                    <button
+                                        class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
+                                        data-section="perempat-final" type="submit" name="submit-juara">Next</button>
+                                </div>
+                            </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(function () {
+        $("#perempat-final").show()
+        $("#semi-final").hide()
+        $("#juara-3").hide()
+        $(".btn-next").on("click", function () {
+            //hide all sections
+            $("section").hide();
+            //show the section depending on which button was clicked
+            $("#" + $(this).attr("data-section")).show();
+
+        });
+
+    });
+</script>
+
+<script>
+    const dataPertandingan = JSON.parse(document.getElementById('data_pertandingan').textContent)
+
+
+    function changeScore(idx, keyTim, operationType) {
+        const idxNum = parseInt(idx)
+        const pertandingan = dataPertandingan[idxNum]
+        const timPertandingan = pertandingan[keyTim]
+        const currentScoreEl = document.getElementById(`score-${keyTim}-${idxNum}`)
+        const currentScore = parseInt(currentScoreEl.textContent.trim())
+        let newScore = currentScore
+        if (operationType === 'decrement') {
+            if (currentScore > 0) {
+                newScore--
+                currentScoreEl.textContent = (currentScore - 1).toString()
+            }
+        } else {
+            newScore++
+            currentScoreEl.textContent = (currentScore + 1).toString()
+        }
+        timPertandingan.score = newScore
+    }
+
+    $(document).ready(function() {
+        var startTime, elapsedTimeMinute = 0;
+        var timerInterval;
+
+        function startStopwatch() {
+            startTime = new Date()
+            timerInterval = setInterval(updateStopwatch, 10);
+        }
+
+        function updateStopwatch() {
+            var currentTime = Date.now();
+            elapsedTime = currentTime - startTime.getTime();
+            var formattedTime = formatTime(elapsedTime);
+            $("#stopwatch").text(formattedTime);
+        }
+
+        function stopStopwatch() {
+            const now = Date.now()
+            elapsedTimeMinute = (now - startTime.getTime()) / 60_000
+            clearInterval(timerInterval);
+            // saveStopwatch(elapsedTime);
+        }
+
+
+        function formatTime(time) {
+            var hours = Math.floor(time / 3600000);
+            var minutes = Math.floor((time % 3600000) / 60000);
+            var seconds = Math.floor((time % 60000) / 1000);
+            var milliseconds = time % 1000;
+
+            hours = padZero(hours, 2);
+            minutes = padZero(minutes, 2);
+            seconds = padZero(seconds, 2);
+            milliseconds = padZero(milliseconds, 3);
+
+            return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+        }
+
+        function padZero(value, length) {
+            return value.toString().padStart(length, "0");
+        }
+
+        function saveStopwatch(time) {
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "/umpire/save_stopwatch",
+        //         headers: {'X-CSRFToken': csrftoken},
+        //         data: {
+        //             'elapsed_time': time
+        //         },
+        //         success: function(response) {
+        //             console.log(response);
+        //             // Lakukan tindakan setelah berhasil menyimpan stopwatch
+        //         },
+        //         error: function(xhr, textStatus, error) {
+        //             console.log(xhr.responseText);
+        //             // Lakukan tindakan jika terjadi kesalahan saat menyimpan stopwatch
+        //         }
+        //     });
+        }
+
+        $("#startBtn").click(function() {
+            startStopwatch();
+        });
+
+        $("#stopBtn").click(function() {
+            stopStopwatch();
+        });
+
+        $("#btnNext").click(function () {
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const padStart2 = (data) => data.toString().padStart(2, "0") 
+            const startDate = startTime.getFullYear() + "-" + padStart2(startTime.getMonth() + 1) + "-" + padStart2(startTime.getDate())
+            const startTimeOnly = padStart2(startTime.getHours()) + ":" + padStart2(startTime.getMinutes()) + ":" + padStart2(startTime.getSeconds())
+
+            for (let i = 0; i < dataPertandingan.length; i++) {
+                const pertandingan = dataPertandingan[i]
+                if ((pertandingan.tim_1?.score || 0) > (pertandingan.tim_2?.score || 0)) {
+                    pertandingan.tim_1.is_win = true
+                    pertandingan.tim_2.is_win = false
+                } else {
+                    pertandingan.tim_2.is_win = true
+                    pertandingan.tim_1.is_win = false
+                }
+            }
+
+            const dataPost = {
+                    'tanggal_mulai': startDate,
+                    'waktu_mulai': startTimeOnly,
+                    'jenis_babak': '{{ jenisBabak }}',
+                    'nama_event': '{{ namaEvent }}',
+                    'tahun_event': '{{ tahun }}',
+                    'jenis_partai': '{{ jenisPartai }}',
+                    'durasi': elapsedTimeMinute,
+                    'data_pertandingan': dataPertandingan,
+                };
+
+            $.ajax({
+                type: 'POST',
+                url: "/umpire/save_match",
+                contentType: 'application/json; charset=utf-8',
+                headers: {'X-CSRFToken': csrftoken},
+                data: JSON.stringify(dataPost),
+                success: function(response) {
+                    console.log(response);
+                    const nextBabak = response.next_babak;
+                    location.href = 
+                        `/umpire/live-score/${dataPost.nama_event}/${dataPost.jenis_partai}/${dataPost.tahun_event}?jenisBabak=${nextBabak}`
+
+                    // Lakukan tindakan setelah berhasil menyimpan stopwatch
+                },
+                error: function(xhr, textStatus, error) {
+                    console.log(xhr.responseText);
+                    // Lakukan tindakan jika terjadi kesalahan saat menyimpan stopwatch
+                }
+            });
+        })
+    });
+</script>
+
+</html>
