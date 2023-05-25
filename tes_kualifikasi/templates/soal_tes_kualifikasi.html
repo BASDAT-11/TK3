@@ -24,6 +24,7 @@
             }
         }
     </script>
+
     {% block meta %}
     {% endblock meta %}
 </head>
@@ -37,7 +38,8 @@
         <div
             class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div id="tes-kualifikasi" class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <form method="POST" class="space-y-4 md:space-y-6" action="">
+                <form method="POST" class="space-y-4 md:space-y-6">
+                    {% csrf_token %}
                     <h1
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         SOAL KUALIFIKASI
@@ -46,19 +48,19 @@
                         <label for="pertanyaan-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Siapa pemain tunggal putra nomor satu dunia saat ini?</label>
                         
                         <div class="flex items-center">
-                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-1" type="radio" value="a" name="default-radio-1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">a. Kento Momota</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-2" type="radio" value="b" name="default-radio-1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">b. Viktor Axelsen</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-3" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-3" type="radio" value="c" name="default-radio-1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-3" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">c. Anthony Sinisuka Ginting</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-4" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-4" type="radio" value="d" name="default-radio-1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-4" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">d. Jonatan Christie</label>
                         </div>
                     </div>
@@ -66,19 +68,19 @@
                     <div>
                         <label for="pertanyaan-2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berapa berat shuttlecock yang digunakan dalam pertandingan badminton?</label>
                         <div class="flex items-center">
-                            <input id="default-radio-5" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-5" type="radio" value="a" name="default-radio-2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-5" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">a. 3 gram</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-6" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-6" type="radio" value="b" name="default-radio-2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-6" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">b. 4 gram</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-7" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-7" type="radio" value="c" name="default-radio-2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-7" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">c. 4,5 gram</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-8" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-8" type="radio" value="d" name="default-radio-2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-8" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">d. 5 gram</label>
                         </div>
                     </div>
@@ -87,19 +89,19 @@
                         <label for="pertanyaan-3" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apa nama teknik memukul shuttlecock yang dilakukan dengan menggunakan pergelangan tangan?</label>
                             
                         <div class="flex items-center">
-                            <input id="default-radio-9" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-9" type="radio" value="a" name="default-radio-3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-9" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">a. Smash</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-10" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-10" type="radio" value="b" name="default-radio-3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-10" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">b. Drop shot</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-11" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-11" type="radio" value="c" name="default-radio-3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-11" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">c. Clear</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-12" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-12" type="radio" value="d" name="default-radio-3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-12" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">d. Flick</label>
                         </div>
                     </div>
@@ -107,54 +109,48 @@
                     <div>
                         <label for="pertanyaan-4" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apa arti dari istilah "let" dalam pertandingan badminton?</label>
                         <div class="flex items-center">
-                            <input id="default-radio-13" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-13" type="radio" value="a" name="default-radio-4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-13" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">a. Skor yang sama
                             </label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-14" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-14" type="radio" value="b" name="default-radio-4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-14" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">b. Poin yang diulang</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-15" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-15" type="radio" value="c" name="default-radio-4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-15" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">c. Kesalahan</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-16" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-16" type="radio" value="d" name="default-radio-4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-16" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">d. Poin untuk lawan</label>
                         </div>
                     </div>
 
                     <div>
-                        <label for="pertanyaan-5" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apa arti dari istilah "let" dalam pertandingan badminton?</label>
+                        <label for="pertanyaan-5" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pasangan mana yang berhasil menjadi juara grup A pada babak penyisihan cabang olahraga bulu tangkis Olimpiade 2020 di Mushashino Forest Sport Plaza, Tokyo?</label>
                         <div class="flex items-center">
-                            <input id="default-radio-17" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-17" type="radio" value="a" name="default-radio-5" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-17" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">a. Greysia Polii / Apriyani Rahayu</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-18" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-18" type="radio" value="b" name="default-radio-5" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-18" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">b. Yuki Fukushima / Sayaka Hirota</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-19" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-19" type="radio" value="c" name="default-radio-5" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-19" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">c. Chen Qingchen / Jia Yifan</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-20" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="default-radio-20" type="radio" value="d" name="default-radio-5" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="default-radio-20" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">d. Mayu Matsumoto / Wakana Nagahara</label>
                         </div>
                     </div>
                     
-                    <a href="/tes-kualifikasi/soal/"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Submit
-                        <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
+                    <button type="submit"
+                            class="w-full text-white bg-blue-500 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            Submit</button>
+
                 </form>
             </div>
 
