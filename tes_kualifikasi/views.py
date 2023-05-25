@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 
 def parse(cursor):
     columns = [col[0] for col in cursor.description]
     return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
+@csrf_exempt
 def tes_kualifikasi(request):
     return redirect('/dashboard/')
 
+@csrf_exempt
 def soal_tes_kualifikasi(request):
     cursor = connection.cursor()
     context = request.session.get('my_context')
@@ -81,6 +84,7 @@ def soal_tes_kualifikasi(request):
 
     return render(request, 'soal_tes_kualifikasi.html')
 
+@csrf_exempt
 def create_tes_kualifikasi(request):
     cursor = connection.cursor()
     if (request.method == 'POST'):
@@ -100,6 +104,7 @@ def create_tes_kualifikasi(request):
         
     return render(request, 'create_tes_kualifikasi.html')
 
+@csrf_exempt
 def list_tes_kualifikasi(request):
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM UJIAN_KUALIFIKASI')
@@ -126,10 +131,9 @@ def list_tes_kualifikasi(request):
             
     return render(request, 'list_tes_kualifikasi.html', {'result': result, 'role': request.session['is_atlet']})
 
+@csrf_exempt
 def riwayat_tes_kualifikasi(request):
     cursor = connection.cursor()
     cursor.execute('SELECT nama,tahun,batch,tempat,tanggal, hasil_lulus FROM MEMBER, ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI WHERE id_atlet = id')
     result = parse(cursor)
-    print (result)
-
     return render(request, 'riwayat_tes_kualifikasi.html', {'result': result, 'role': request.session['is_umpire']})
