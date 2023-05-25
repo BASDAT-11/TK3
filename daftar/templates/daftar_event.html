@@ -94,66 +94,30 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-gray-800">
-                                    <tr class="whitespace-nowrap">
-                                        <td class="px-6 py-4 text-sm text-gray-500">
-                                            GBK
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            Indonesia
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-gray-500">8</div>
-                                        </td>
-                                        <td class="px-6 py-3">
-                                            <span class="sm:ml-3">
-                                                <A type="button" href="{% url 'daftar:event_per_stadium' %}" class="inline-flex items-center rounded-md bg-green-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900" style="background-color: orangered;">
-                                                    Pilih
-                                                </A>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="whitespace-nowrap">
-                                        <td class="px-6 py-4 text-sm text-gray-500">
-                                            Senayan
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            Indonesia
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-gray-500">16</div>
-                                        </td>
-                                        <td class="px-6 py-3">
-                                            <span class="sm:ml-3">
-                                                <button type="button" class="inline-flex items-center rounded-md bg-green-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900" style="background-color: orangered;">
-                                                    Pilih
-                                                </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="whitespace-nowrap">
-                                        <td class="px-6 py-4 text-sm text-gray-500">
-                                            JIS
-                                        </td>
-                                        <td class="whitespace-nowrap">
-                                            <div class="px-6 py-4 text-sm text-gray-500">
-                                            Indonesia
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-gray-500">24</div>
-                                        </td>
-                                        <td class="px-6 py-3">
-                                            <span class="sm:ml-3">
-                                                <button type="button" class="inline-flex items-center rounded-md bg-green-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900" style="background-color: orangered;">
-                                                    Pilih
-                                                </button>
-                                            </span>
-                                        </td>
-                                    </tr>
+                                    {% for data in list %}
+                                        <tr class="whitespace-nowrap">
+                                            <td class="whitespace-nowrap">
+                                                    {{data.nama}}
+                                            </td>
+                                            <td class="whitespace-nowrap">
+                                                <div class="px-6 py-4 text-sm text-gray-500">
+                                                    {{data.negara}}
+                                                </div>
+                                            </td>
+                                            <td class="whitespace-nowrap">
+                                                <div class="px-6 py-4 text-sm text-gray-500">
+                                                    {{data.kapasitas}}
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-3">
+                                                <span class="sm:ml-3">
+                                                    <A type="button" href="{% url 'daftar:event_per_stadium' nama=data.nama %}" class="inline-flex items-center rounded-md bg-green-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900" style="background-color: orangered;">
+                                                        Pilih
+                                                    </A>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                             </div>
