@@ -122,3 +122,4 @@ def user_logout(request):
         request.session['is_umpire'] = False
         return HttpResponseRedirect(reverse("authentication:user_login"))
 
+
