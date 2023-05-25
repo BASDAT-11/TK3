@@ -7,12 +7,14 @@ from authentication.forms import LoginForm, AtletForm, PelatihForm, UmpireForm
 
 from authentication.query import SQLlogin
 from authentication.register import atlet_register, pelatih_register, umpire_register
+from django.views.decorators.csrf import csrf_exempt
 
 
 def main_auth(request):
     return render(request, 'main_auth.html')
 
 
+@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
         nama = request.POST.get('nama')
@@ -48,6 +50,7 @@ def user_login(request):
     context = {'login_form': LoginForm()}
     return render(request, 'login.html', context)
 
+@csrf_exempt
 def user_register(request):
     if request.method == 'POST':
         if "atlet-register" in request.POST:
@@ -101,6 +104,7 @@ def user_register(request):
         'umpire_form': UmpireForm(),
     }
     return render(request, 'register.html', context)
+
 
 def user_logout(request):
     try:

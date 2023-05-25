@@ -3,9 +3,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from list_event.views import slugify
+from django.views.decorators.csrf import csrf_exempt
 
 from pertandingan.forms import SkorFormFinal, SkorFormQuarter, SkorFormR16, SkorFormR32, SkorFormSemi
-from pertandingan.form_dua import ScoreForm
+from pertandingan.forms import ScoreForm
 from pertandingan.query import SQLfilter, SQLlistevent, cari_atlet_ganda, cari_atlet_tunggal, final, insert_match, insert_peserta_match, perempat_final, semi_final,show_perempatfinal
 
 # Create your views here.
@@ -27,6 +28,7 @@ def show_list_event(request):
 def pertandingan(request, event, tahun, jenis_partai):
     return render(request, 'list_pertandingan.html')
 
+@csrf_exempt
 def show_pertandingan_seperempat_final(request, event, tahun, jenis_partai):
     atlet = perempat_final(event, tahun)
     nama_event = (event.replace('-', ' ')).title()
@@ -80,6 +82,7 @@ def show_pertandingan_seperempat_final(request, event, tahun, jenis_partai):
 
     return render(request, 'show_pertandingan_seperempat_final.html', context)
 
+@csrf_exempt
 def show_pertandingan_semifinal(request, event, tahun, jenis_partai):
     atlet = semi_final(event, tahun)
     nama_event = (event.replace('-', ' ')).title()
@@ -133,6 +136,7 @@ def show_pertandingan_semifinal(request, event, tahun, jenis_partai):
 
     return render(request, 'show_pertandingan_semifinal.html', context)
 
+@csrf_exempt
 def show_pertandingan_semifinal(request, event, tahun, jenis_partai):
     atlet = semi_final(event, tahun)
     extracted = []
@@ -179,6 +183,7 @@ def show_pertandingan_semifinal(request, event, tahun, jenis_partai):
 
     return render(request, 'show_pertandingan_semifinal.html', context)
 
+@csrf_exempt
 def show_pertandingan_final(request, event, tahun, jenis_partai):
     atlet = final(event, tahun)
     nama_event = (event.replace('-', ' ')).title()
