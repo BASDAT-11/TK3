@@ -91,9 +91,10 @@ DATABASES = {
         },
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'notshynotme',
-        'HOST': 'localhost',
-        'PORT': '5433'
+
+        'PASSWORD': 'Babadu11mantap',
+        'HOST': 'db.rbxkythxjxxnxhppnvph.supabase.co',
+        'PORT': '5432'
     }
 }
 
