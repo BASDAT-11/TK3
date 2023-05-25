@@ -8,6 +8,8 @@ from django.db import connection
 from dashboard.query import SQLprofileAtlet, SQLprofilePelatih, SQLprofileUmpire
     
 def base_page(request):
+    if ('is_atlet' not in request.session) and ('is_pelatih' not in request.session) and ('is_umpire' not in request.session):
+        return HttpResponseRedirect(reverse("authentication:main_auth"))
     if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire'] :
         print('x')
         return redirect('dashboard/')
@@ -30,7 +32,7 @@ def dashboard_page(request):
             return HttpResponseRedirect(reverse("authentication:user_login"))
     else:
         return HttpResponseRedirect(reverse("authentication:user_login"))
-
+    
     context = {
         'user_logged_in' : user_logged_in[0]
     }
