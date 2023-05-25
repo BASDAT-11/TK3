@@ -16,7 +16,6 @@ psycopg2-binary==2.9.6
 pycodestyle==2.10.0
 pytz==2023.3
 regex==2023.3.23
-sklearn==0.0.post4
 sqlparse==0.4.4
 tomli==2.0.1
 tqdm==4.65.0
