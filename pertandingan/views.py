@@ -1,199 +1,235 @@
+from datetime import date, datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from list_event.views import slugify
 
-from pertandingan.forms import SkorFormQuarter, SkorFormSemi
-from pertandingan.query import SQLquarter, show_perempatfinal
+from pertandingan.forms import SkorFormFinal, SkorFormQuarter, SkorFormR16, SkorFormR32, SkorFormSemi
+from pertandingan.form_dua import ScoreForm
+from pertandingan.query import SQLfilter, SQLlistevent, cari_atlet_ganda, cari_atlet_tunggal, final, insert_match, insert_peserta_match, perempat_final, semi_final,show_perempatfinal
 
 # Create your views here.
 
-
-def pertandingan(request, key):
-    url = key.split('-')
-    quarter = SQLquarter(url[0], url[1], url[2])
-    if quarter[0]['status_kapasitas'] == False:
-        return HttpResponseRedirect(reverse("list_event:show_list_event"))
+def show_list_event(request):
+    if request.session['user']['role'] =='umpire':
+        list_event = SQLlistevent()
+        events = []
+        for item in list_event:
+            events.append((item, f"{slugify(item['nama_event'])}/{item['tahun']}/{slugify(item['jenis_partai'])}/perempat-final/"))
     else:
-        all_data = show_perempatfinal(url[0], url[1])
-    form = SkorFormQuarter(request.POST)
-    print(form.errors)
+        return HttpResponseRedirect(reverse("authentication:user_login"))
 
-    print(all_data)
     context = {
-        'versus': all_data,
+        'list_event' : events
     }
-    return render(request, 'pertandingan.html', context)
+    return render(request, "list_pertandingan.html", context)
 
+def pertandingan(request, event, tahun, jenis_partai):
+    return render(request, 'list_pertandingan.html')
 
-def show_pertandingan_v2(request, event, tahun, jenis_partai):
+def show_pertandingan_seperempat_final(request, event, tahun, jenis_partai):
+    atlet = perempat_final(event, tahun)
+    nama_event = (event.replace('-', ' ')).title()
+    id_umpire = request.session['user']['id']
+    extracted = []
+    for item in atlet:
+        if item['role'] == 'tunggal':
+            new_data = cari_atlet_tunggal(str(item['id_atlet_kualifikasi']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+        else:
+            new_data = cari_atlet_ganda(str(item['id_atlet_ganda']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+
+    jumlah_peserta = len(extracted)
+
+    scoring_stuff = []
+
+    for i in range(0, jumlah_peserta, 2):
+        prefix = f"{extracted[i]['nomor_peserta']}-{extracted[i+1]['nomor_peserta']}"
+        scoring_form = ScoreForm(request.POST or None, prefix=prefix)
+        scoring_stuff.append((prefix, extracted[i], extracted[i+1], scoring_form))
+        
     if request.method == 'POST':
-        print('mira gaalak')
-
-        print('submit-quarter' in request.POST)
-        if 'submit-quarter' in request.POST:
-            form = SkorFormQuarter(request.POST)
-            print(form.is_valid())
-            print(form.errors)
+        winner_with_score = []
+        insert_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), 100, nama_event, tahun, id_umpire)
+        for i in range(0, int(jumlah_peserta/2)):
+            form = scoring_stuff[i][3]
             if form.is_valid():
-                skor_a = form.cleaned_data.get('skor_a')
-                skor_b = form.cleaned_data.get('skor_b')
-                skor_c = form.cleaned_data.get('skor_c')
-                skor_d = form.cleaned_data.get('skor_d')
-                skor_e = form.cleaned_data.get('skor_e')
-                skor_f = form.cleaned_data.get('skor_f')
-                skor_g = form.cleaned_data.get('skor_g')
-                skor_h = form.cleaned_data.get('skor_h')
-                print(skor_a, skor_b)
-                print("pindah")
+                score_kiri = form.cleaned_data['atlet_score_kiri']
+                score_kanan = form.cleaned_data['atlet_score_kanan']
+                teams = form.prefix.split('-')
+                if score_kiri > score_kanan:
+                    winner_with_score.append((teams[0], score_kiri))
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[0], True)
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[1], False)
+                else:
+                    winner_with_score.append((teams[1], score_kanan))
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[1], True)
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[0], False)
+
+        print(winner_with_score)   
+        return redirect(f'''/pertandingan/{event}/{tahun}/{jenis_partai}/semi-final/''')
 
     context = {
-        'skor_form' : SkorFormQuarter()
+        'content': scoring_stuff
     }
-    return render(request, 'pertandingan_v2.html', context)
+
+    return render(request, 'show_pertandingan_seperempat_final.html', context)
 
 def show_pertandingan_semifinal(request, event, tahun, jenis_partai):
-    print("semifinal")
-    print(request.method)
-    if request.method == 'POST':
-        print('submit-semi' in request.POST)
-        if 'submit-semi' in request.POST:
-            form = SkorFormSemi(request.POST)
-            print("yuk bisa yuk")
+    atlet = semi_final(event, tahun)
+    nama_event = (event.replace('-', ' ')).title()
+    id_umpire = request.session['user']['id']
+    extracted = []
+    for item in atlet:
+        if item['role'] == 'tunggal':
+            new_data = cari_atlet_tunggal(str(item['id_atlet_kualifikasi']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+        else:
+            new_data = cari_atlet_ganda(str(item['id_atlet_ganda']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
 
+    jumlah_peserta = len(extracted)
+
+    scoring_stuff = []
+
+    for i in range(0, jumlah_peserta, 2):
+        prefix = f"{extracted[i]['nomor_peserta']}-{extracted[i+1]['nomor_peserta']}"
+        scoring_form = ScoreForm(request.POST or None, prefix=prefix)
+        scoring_stuff.append((prefix, extracted[i], extracted[i+1], scoring_form))
+        
+    if request.method == 'POST':
+        winner_with_score = []
+        insert_match('Semi final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), 100, nama_event, tahun, id_umpire)
+        for i in range(0, int(jumlah_peserta/2)):
+            form = scoring_stuff[i][3]
             if form.is_valid():
-                skor_a = form.cleaned_data.get('skor_a')
-                skor_b = form.cleaned_data.get('skor_b')
-                skor_c = form.cleaned_data.get('skor_c')
-                skor_d = form.cleaned_data.get('skor_d')
-                print(skor_a, skor_b)
-                print('OKSEMI')
-                return render(request, 'pertandingan_final.html')
+                score_kiri = form.cleaned_data['atlet_score_kiri']
+                score_kanan = form.cleaned_data['atlet_score_kanan']
+                teams = form.prefix.split('-')
+                if score_kiri > score_kanan:
+                    winner_with_score.append((teams[0], score_kiri))
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[0], True)
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[1], False)
+                else:
+                    winner_with_score.append((teams[1], score_kanan))
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[1], True)
+                    insert_peserta_match('Perempat final', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[0], False)
+
+        print(winner_with_score)   
+        return redirect(f'''/pertandingan/{event}/{tahun}/{jenis_partai}/semi-final/''')
 
     context = {
-        'skor_form' : SkorFormSemi()
+        'content': scoring_stuff
     }
-    return render(request, 'pertandingan_semifinal.html', context)
+
+    return render(request, 'show_pertandingan_semifinal.html', context)
+
+def show_pertandingan_semifinal(request, event, tahun, jenis_partai):
+    atlet = semi_final(event, tahun)
+    extracted = []
+    for item in atlet:
+        if item['role'] == 'tunggal':
+            new_data = cari_atlet_tunggal(str(item['id_atlet_kualifikasi']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+        else:
+            new_data = cari_atlet_ganda(str(item['id_atlet_ganda']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+
+    jumlah_peserta = len(extracted)
+
+    scoring_stuff = []
+
+    for i in range(0, jumlah_peserta, 2):
+        prefix = f"{extracted[i]['nomor_peserta']}-{extracted[i+1]['nomor_peserta']}"
+        scoring_form = ScoreForm(request.POST or None, prefix=prefix)
+        scoring_stuff.append((prefix, extracted[i], extracted[i+1], scoring_form))
+        
+    if request.method == 'POST':
+        winner_with_score = []
+        for i in range(0, int(jumlah_peserta/2)):
+            form = scoring_stuff[i][3]
+            if form.is_valid():
+                score_kiri = form.cleaned_data['atlet_score_kiri']
+                score_kanan = form.cleaned_data['atlet_score_kanan']
+                teams = form.prefix.split('-')
+                if score_kiri > score_kanan:
+                    winner_with_score.append((teams[0], score_kiri))
+                else:
+                    winner_with_score.append((teams[1], score_kanan))
+
+        print(winner_with_score)   
+        return redirect(f'''/pertandingan/{event}/{tahun}/{jenis_partai}/final/''')
+    
+    context = {
+        'content': scoring_stuff
+    }
+
+    return render(request, 'show_pertandingan_semifinal.html', context)
 
 def show_pertandingan_final(request, event, tahun, jenis_partai):
+    atlet = final(event, tahun)
+    nama_event = (event.replace('-', ' ')).title()
+    id_umpire = request.session['user']['id']
+    extracted = []
+    for item in atlet:
+        if item['role'] == 'tunggal':
+            new_data = cari_atlet_tunggal(str(item['id_atlet_kualifikasi']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+        else:
+            new_data = cari_atlet_ganda(str(item['id_atlet_ganda']))
+            new_data = new_data[0]
+            new_data['nomor_peserta'] = item['nomor_peserta']
+            extracted.append(new_data)
+
+    jumlah_peserta = len(extracted)
+
+    scoring_stuff = []
+
+    for i in range(0, jumlah_peserta, 2):
+        prefix = f"{extracted[i]['nomor_peserta']}-{extracted[i+1]['nomor_peserta']}"
+        scoring_form = ScoreForm(request.POST or None, prefix=prefix)
+        scoring_stuff.append((prefix, extracted[i], extracted[i+1], scoring_form))
+        
     if request.method == 'POST':
-        if 'submit-final' in request.POST:
-            form = SkorFormSemi(request.POST)
-            print(form.is_valid())
-            print(form.errors)
+        winner_with_score = []
+        insert_match('Juara 3', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), 100, nama_event, tahun, id_umpire)
+        insert_match('Juara 1', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), 100, nama_event, tahun, id_umpire)
+        for i in range(0, int(jumlah_peserta/2)):
+            form = scoring_stuff[i][3]
             if form.is_valid():
-                skor_a3 = form.cleaned_data.get('skor_a3')
-                skor_b3 = form.cleaned_data.get('skor_b3')
-                skor_a = form.cleaned_data.get('skor_a')
-                skor_b = form.cleaned_data.get('skor_b')
-                print(skor_a, skor_b)
-                return redirect('final/')
+                score_kiri = form.cleaned_data['atlet_score_kiri']
+                score_kanan = form.cleaned_data['atlet_score_kanan']
+                teams = form.prefix.split('-')
+                if score_kiri > score_kanan:
+                    winner_with_score.append((teams[0], score_kiri))
+                    insert_peserta_match('Juara 3', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[0], True)
+                    insert_peserta_match('Juara 3', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[1], False)
+                else:
+                    winner_with_score.append((teams[1], score_kanan))
+                    insert_peserta_match('Juara 1', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[1], True)
+                    insert_peserta_match('Juara 1', date.today().strftime("%Y/%m/%d"), datetime.now().strftime("%H:%M:%S"), teams[0], False)
+
+        print(winner_with_score)   
+        return redirect(f'''/pertandingan/''')
 
     context = {
-        'skor_form' : SkorFormSemi()
-    }
-    return render(request, 'pertandingan_semifinal.html', context)
-
-
-'''def save_skor_form(request):
-    if request.method == 'POST':
-        print('kkk')
-        print('mira gaalak')
-
-        print('submit-quarter' in request.POST)
-        if 'submit-quarter' in request.POST:
-            form = SkorForm(request.POST)
-            print(form.is_valid())
-            print(form.errors)
-            if form.is_valid():
-                skor_a = form.cleaned_data.get('skor_a')
-                skor_b = form.cleaned_data.get('skor_b')
-                skor_c = form.cleaned_data.get('skor_c')
-                skor_d = form.cleaned_data.get('skor_d')
-                skor_e = form.cleaned_data.get('skor_e')
-                skor_f = form.cleaned_data.get('skor_f')
-                skor_g = form.cleaned_data.get('skor_g')
-                skor_h = form.cleaned_data.get('skor_h')
-                print(skor_a, skor_b)
-
-
-    context = {
-        'skor_form': SkorForm(request.POST)
+        'content': scoring_stuff
     }
 
-    return render(request, 'pertandingan_v2.html', context)'''
+    return render(request, 'show_pertandingan_final.html', context)
 
-
-def save_quarter(request, key):
-    form = SkorForm(request.POST)
-    print(form.errors)
-    if request.method == 'POST':
-        print(form.errors)
-        if "submit-quarter" in request.POST:
-            print('XXX')
-            if form.is_valid():
-                skor_a = form.cleaned_data.get('skor_a')
-                skor_b = form.cleaned_data.get('skor_b')
-                skor_c = form.cleaned_data.get('skor_c')
-                skor_d = form.cleaned_data.get('skor_d')
-                skor_e = form.cleaned_data.get('skor_e')
-                skor_f = form.cleaned_data.get('skor_f')
-                skor_g = form.cleaned_data.get('skor_g')
-                skor_h = form.cleaned_data.get('skor_h')
-                print(skor_a, skor_b)
-                return HttpResponseRedirect(reverse("list_event:show_list_event"))
-    context = {
-        'skor_form': SkorForm()
-    }
-    return render(request, 'pertandingan.html', context)
-
-# def user_register(request):
-#     url = key.split('-')
-#     quarter = SQLquarter(url[0], url[1], url[2])
-#     if quarter[0]['status_kapasitas'] == False:
-#         return HttpResponseRedirect(reverse("list_event:show_list_event"))
-#     else:
-#         all_data = show_perempatfinal(url[0], url[1])
-
-
-#     print(request.method)
-#     if request.method == 'POST':
-#         if "atlet-register" in request.POST:
-#             form = SkorForm(request.POST)
-#             if form.is_valid():
-#                 nama = form.cleaned_data.get('nama')
-#                 email = form.cleaned_data.get('email')
-#                 negara = form.cleaned_data.get('negara')
-#                 tanggal_lahir = form.cleaned_data.get('tanggal_lahir')
-#                 play_right = form.cleaned_data.get('play_right')
-#                 tinggi_badan = form.cleaned_data.get('tinggi_badan')
-#                 jenis_kelamin = form.cleaned_data.get('jenis_kelamin')
-#                 register = atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan, jenis_kelamin)
-#                 print(register)
-#                 if register['success']:
-#                     return HttpResponseRedirect(reverse("authentication:user_login"))
-#                 else:
-#                     messages.info(request,register['message'])
-
-#     context = {
-#         'atlet_form': AtletForm(),
-#         'pelatih_form': PelatihForm(),
-#         'umpire_form': UmpireForm(),
-#     }
-#     return render(request, 'register.html', context)
-
-'''@login_required(login_url='/login/')
-@csrf_exempt
-def get_likes(request, key):
-    if request.method == 'GET':
-        post = PostTech.objects.get(pk=key).likes.all()
-        is_like = False
-        for like in post:
-            if like == request.user:
-                is_like = True
-                break
-        return JsonResponse({
-            'error': False, 
-            'likes_count': len(post),
-            'is_liked': is_like,
-        })
-    return HttpResponseBadRequest("Bad request")'''

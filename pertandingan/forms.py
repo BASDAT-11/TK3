@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import Form
 
-class SkorFormR16(Form):
+class SkorFormR32(Form):
     skor_a = forms.IntegerField(label='skor-b', widget=forms.NumberInput(
         attrs={'id': 'skor-a', 'placeholder': '0'}))
     skor_b = forms.IntegerField(label='skor-a', widget=forms.NumberInput(
