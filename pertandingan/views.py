@@ -5,7 +5,6 @@ from django.urls import reverse
 from list_event.views import slugify
 from django.views.decorators.csrf import csrf_exempt
 
-from pertandingan.forms import SkorFormFinal, SkorFormQuarter, SkorFormR16, SkorFormR32, SkorFormSemi
 from pertandingan.forms import ScoreForm
 from pertandingan.query import SQLfilter, SQLlistevent, cari_atlet_ganda, cari_atlet_tunggal, final, insert_match, insert_peserta_match, perempat_final, semi_final,show_perempatfinal
 
