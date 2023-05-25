@@ -20,7 +20,7 @@
                 Logout
             </button>
             <button data-collapse-toggle="navbar-sticky" type="button"
-                class="inline-flex items-center p-2 text-sm text-gray-400 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                class="inline-flex items-center p-2 text-sm text-gray-400text-blue-400 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                 aria-controls="navbar-sticky" aria-expanded="false">
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -63,33 +63,45 @@
     </div>
 </nav>
 <body>
-    <h2 class="text-2xl font-bold leading-7 text-gray-800 sm:truncate sm:text-4xl sm:tracking-tight text-center pt-4">Daftar Sponsor</h2>   
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-600">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                  <form action ="" method = "post">
-                    {% csrf_token %}
-                      <label for="sponsor">Sponsor:</label>
-                      <select id="sponsor" name="sponsor">
-                        {% for sponsor in data_sponsor_available %}
-                        <option value="{{ sponsor.nama_brand }}">{{ sponsor.nama_brand }}</option>
-                        {% endfor %}
-                      </select>
-                    
-                      <label for="mulai">Tanggal Mulai:</label>
-                      <input type="date" id="mulai" name="mulai">
-                    
-                      <label for="selesai">Tanggal Selesai:</label>
-                      <input type="date" id="selesai" name="selesai">
-                    
-                      <input type="submit" value="Submit">
-
-                      {% if error %}
-                        <p class = "text-white">{{ error }}!</p>
-                      {% endif %}
-                </div>
+    <h2 class="text-2xl font-bold leading-7 text-gray-800 sm:truncate sm:text-4xl sm:tracking-tight text-center pt-4">List Sponsor</h2>
+  <div class="container flex justify-center mx-auto pt-4">
+    <div class="flex flex-col">
+        <div class="w-full">
+            <div class="border-b border-gray-200 shadow">
+                <table class="divide-y divide-gray-300 ">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-2 text-base text-gray-400text-blue-400 ">
+                                Nama Sponsor
+                            </th>
+                            <th class="px-6 py-2 text-base text-gray-400text-blue-400 ">
+                                Tanggal Mulai
+                            </th>
+                            <th class="px-6 py-2 text-base text-gray-400text-blue-400 ">
+                                Tanggal Selesai
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-300">
+                        {% for iter in daftar_list_sponsor %}
+                        <tr class="whitespace-nowrap">
+                            <td class="px-6 py-4 text-sm text-gray-400text-blue-400 ">
+                                {{ iter.nama_sponsor }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-400text-blue-400 ">
+                              {{ iter.tgl_mulai }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-400text-blue-400 ">
+                              {{ iter.tgl_selesai }}
+                            </td>
+                        </tr>
+                      {% endfor %} 
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 </body>
 </html>
 {% endblock content %}
