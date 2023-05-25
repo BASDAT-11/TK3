@@ -44,7 +44,8 @@ def search_nomor_peserta(id_atlet):
     return nomor_peserta
 
 def unenroll_event(nama_atlet, nama_event, tahun_event):
-    nomor_peserta = search_nomor_peserta(nama_atlet)
+    id_atlet = search_id_atlet(nama_atlet)
+    nomor_peserta = search_nomor_peserta(id_atlet)
     error = ''
 
     try:
