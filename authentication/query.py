@@ -36,14 +36,14 @@ def SQLlogin(nama, email):
 
 def SQLRegisterMember(id, nama, email):
     try:
-        query =  '''INSERT INTO MEMBER (id, nama, email)
-            VALUES (%s, %s, %s);
+        query =  f'''INSERT INTO MEMBER (id, nama, email)
+            VALUES ('{id}', '{nama}', '{email}');
             '''
                 
         cursor = connection.cursor()
         cursor.execute("set search_path to babadu;")
-        cursor.execute(query, (id, nama, email))
-
+        cursor.execute(query)
+        
         connection.commit()
         connection.close()
     
@@ -56,13 +56,13 @@ def SQLRegisterMember(id, nama, email):
 
 def SQLRegisterAtlet(id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin):
     try:
-        query =  '''INSERT INTO ATLET (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin)
-            VALUES (%s, %s, %s, %s, %s, %s, %s);
+        query =  f'''INSERT INTO ATLET (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin)
+            VALUES ('{id}', '{tgl_lahir}', '{negara_asal}', '{play_right}', '{height}', '{world_rank}', '{jenis_kelamin}');
             '''
                 
         cursor = connection.cursor()
         cursor.execute("set search_path to babadu;")
-        cursor.execute(query, (id, tgl_lahir, negara_asal, play_right, height, world_rank, jenis_kelamin))
+        cursor.execute(query)
 
         connection.commit()
         connection.close()
@@ -77,13 +77,13 @@ def SQLRegisterAtlet(id, tgl_lahir, negara_asal, play_right, height, world_rank,
 
 def SQLRegisterPelatih(id, tanggal_mulai, negara):
     try:
-        query =  '''INSERT INTO PELATIH (id, tanggal_mulai, negara)
-            VALUES (%s, %s, %s);
+        query =  f'''INSERT INTO PELATIH (id, tanggal_mulai, negara)
+            VALUES ('{id}', '{tanggal_mulai}', '{negara}');
             '''
                 
         cursor = connection.cursor()
         cursor.execute("set search_path to babadu;")
-        cursor.execute(query, (id, tanggal_mulai, negara))
+        cursor.execute(query)
         
         connection.commit()
         connection.close()
@@ -100,8 +100,9 @@ def SQLRegisterSpesialisasi(id, kategori):
         
         query =  f'''INSERT INTO PELATIH_SPESIALISASI (id_pelatih, id_spesialisasi)
             SELECT '{id}', S.id
-            FROM SPESIALISASI S
-            WHERE S.spesialisasi = '{item}';
+            FROM SPESIALISASI S, PELATIH P
+            WHERE S.spesialisasi = '{item}'
+            AND P.id = '{id}';
             '''
                 
         cursor = connection.cursor()
