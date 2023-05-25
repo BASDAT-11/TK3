@@ -18,27 +18,37 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white py-6 ">Profile Atlet</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: Candide McOwan
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ user_logged_in.nama }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Indonesia
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara_asal }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: mcowan@gmail.com
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ user_logged_in.email }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal lahir: 2001-09-01
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal lahir: {{ user_logged_in.tgl_lahir }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: Right
+                    {% if user_logged_in.play_right %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: Right Hand
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tinggi badan: 180
+                    {% else %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Play: Left Hand
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Laki-laki
+                    {% endif %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tinggi badan: {{ user_logged_in.height }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: Markus Horison
+                    {% if user_logged_in.play_right %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Laki - laki
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Status: Qualified
+                    {% else %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis kelamin: Perempuan
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">World rank: 24
+                    {% endif %}
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pelatih: -
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Total poin: 45
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Status: {{ status }}
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">World rank: {{ world_rank }}
+                    </p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Total poin: {{ total_poin }}
                     </p>
                 </div>
                 {% endif %}
@@ -48,15 +58,15 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Profile Pelatih</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: Markus Horison
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ user_logged_in.nama }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Indonesia
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: markus@gmail.com
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ user_logged_in.email }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Spesialisasi Kategori: Tunggal Putra
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Spesialisasi Kategori: {{ spesialisasi }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal Mulai: 1987-09-01
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tanggal Mulai: {{tanggal_mulai}}
                     </p>
                 </div>
                 {% endif %}
@@ -66,11 +76,11 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Profile Umpire</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: Ryuji Haruno
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nama lengkap: {{ user_logged_in.nama }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: Denmark
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Negara: {{ user_logged_in.negara }}
                     </p>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: ryuji@gmail.com
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Email: {{ user_logged_in.email }}
                     </p>
                 </div>
                 {% endif %}

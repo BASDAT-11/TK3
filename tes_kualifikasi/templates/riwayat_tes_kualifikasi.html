@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            900: '#0F1112',
+                            800: '#151718',
+                            700: '#181A1E',
+                            600: '#55565C',
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    {% block meta %}
+    {% endblock meta %}
+</head>
+
+{% block content %}
+<body>
+    <section class="bg-blue-700 dark:bg-blue-800">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-blue-900 dark:text-white">
+                <!-- <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                    alt="logo"> -->
+                Badan Badminton Dunia
+            </a>
+            
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            {% if role %}
+                            <th scope="col" class="px-6 py-3">
+                                Nama Atlet
+                            </th>
+                            {% endif %}
+                            <th scope="col" class="px-6 py-3">
+                                Tahun
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Batch
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tempat Pelaksanaan
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tanggal Pelaksanaan
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Hasil
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for res in result %}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            {% if role %}               
+                                <th scope="col" class="px-6 py-3">
+                                    {{res.nama}}
+                                </th>
+                            {% endif %}
+
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ res.tahun }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ res.batch }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ res.tempat }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ res.tanggal }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if res.hasil_lulus == True %}
+                                    Lulus
+                                {% else %}
+                                    Tidak Lulus
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+{% endblock content %}

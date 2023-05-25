@@ -16,6 +16,7 @@ def atlet_register(nama, email, negara, tanggal_lahir, play_right, tinggi_badan,
             'success': False,
             'message': str(e.args)
         }
+    
     else:
         return {
             'success': True,

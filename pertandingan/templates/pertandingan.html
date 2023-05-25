@@ -1,4 +1,5 @@
 {% load static %}
+{% load pertandingan_filter %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +28,7 @@
     {% block meta %}
     {% endblock meta %}
 </head>
+
 <main>
     <div class="flex flex-col align-items-center justify-center w-screen min-h-screen bg-gray-900 px-10 py-10">
         <div class="py-4">
@@ -35,241 +37,235 @@
                 Back To Event
             </a>
         </div>
-        <section id="perempat-final" style="display: block;">
-            <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan Perempat Final</h1>
-            <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
-            <div class="flex flex-col mt-6">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden sm:rounded-lg">
-                            <table class="min-w-full text-sm text-gray-400">
-                                <thead class="bg-gray-800 text-xs uppercase font-medium">
-                                    <tr>
-                                        <th></th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Tim 1
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Tim 2
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Skor Tim 1
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Skor Tim 2
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-gray-800">
+        <div>
+            <section id="perempat-final" style="display: block;">
+                <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan Perempat Final</h1>
+                <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
+                <div class="flex flex-col mt-6">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <form action = "{{ request.path }}" method = "POST">
+                                {% csrf_token %}
+                            <div class="shadow overflow-hidden sm:rounded-lg">
+                                
+                                <table class="min-w-full text-sm text-gray-400">
+                                    <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 2
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 2
+                                            </th>
+                                        </tr>
+                                    </thead>
 
-                                    <tr class="bg-black bg-opacity-20">
-                                        <td class="pl-4">
-                                            1
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            A
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            B
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            11
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            3
-
-
-                                    </tr>
-                                    <tr>
-                                        <td class="pl-4">
-                                            2
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            C
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            D
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            9
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            6
-                                        </td>
-
-                                    </tr>
-                                    <tr class="bg-black bg-opacity-20">
-                                        <td class="pl-4">
-                                            3
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            E
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            F
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            10
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            2
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td class="pl-4">
-                                            4
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            G
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            H
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            10
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            2
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <div class="flex flex-col d-grid mt-1 bg-gray-800">
-                                <button class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
-                                    data-section="semi-final" type="submit"><a href="#semi-final">Next</a></button>
+                                    <tbody class="bg-gray-800">
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                {{versus.0.id_atlet_kualifikasi}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{versus.1.id_atlet_kualifikasi}}
+                                            </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_a|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_b|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                        </tr>
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                {{versus.2.id_atlet_kualifikasi}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{versus.3.id_atlet_kualifikasi}}
+                                            </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_c|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_d|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                        </tr>
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                {{versus.4.id_atlet_kualifikasi}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{versus.5.id_atlet_kualifikasi}}
+                                            </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_e|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_f|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                        </tr>
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                {{versus.6.id_atlet_kualifikasi}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{versus.7.id_atlet_kualifikasi}}
+                                            </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_g|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{skor_form.skor_h|addclass_skor:"bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}}
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="flex flex-col d-grid mt-1 bg-gray-800">
+                                    <button
+                                        class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
+                                        data-section="semi-final" type="submit" name="submit-quarter"><a href="#semi-final">Next</a></button>
+                        
+                            </div>
+                        </form>
+                            </div>
                             </div>
                         </div>
-        </section>
-        <section id="semi-final">
-            <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan SEMIFINAL</h1>
-            <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
-            <div class="flex flex-col mt-6">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden sm:rounded-lg">
-                            <table class="min-w-full text-sm text-gray-400">
-                                <thead class="bg-gray-800 text-xs uppercase font-medium">
-                                    <tr>
-                                        <th></th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Tim 1
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Tim 2
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Skor Tim 1
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Skor Tim 2
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-gray-800">
+            </section>
 
-                                    <tr class="bg-black bg-opacity-20">
-                                        <td class="pl-4">
-                                            1
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            A
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            B
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            11
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            3
+            <section id="semi-final">
+                <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan SEMIFINAL</h1>
+                <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
+                <div class="flex flex-col mt-6">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden sm:rounded-lg">
+                                <table class="min-w-full text-sm text-gray-400">
+                                    <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                        <tr>
+                                            <th></th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 2
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 2
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-gray-800">
 
-
-                                    </tr>
-                                    <tr>
-                                        <td class="pl-4">
-                                            2
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            C
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            D
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            9
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            6
-                                        </td>
-
-                                    </tr>
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="pl-4">
+                                                1
+                                            </td>
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                A
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                B
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                11
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                3
 
 
-                                </tbody>
-                            </table>
-                            <div class="flex flex-col d-grid mt-1 bg-gray-800">
-                                <button class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
-                                    data-section="juara-3" type="submit"><a href="#juara-3">Next</a></button>
+                                        </tr>
+                                        <tr>
+                                            <td class="pl-4">
+                                                2
+                                            </td>
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                C
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                D
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                9
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                6
+                                            </td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                                <div class="flex flex-col d-grid mt-1 bg-gray-800">
+                                    <button
+                                        class="btn btn-primary btn-next p-2 text-xs uppercase font-medium text-white"
+                                        data-section="juara-3" type="submit"><a href="#juara-3">Next</a></button>
+                                </div>
                             </div>
-                        </div>
-        </section>
-        <section id="juara-3">
-            <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan Juara 3</h1>
-            <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
-            <div class="flex flex-col mt-6">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden sm:rounded-lg">
-                            <table class="min-w-full text-sm text-gray-400">
-                                <thead class="bg-gray-800 text-xs uppercase font-medium">
-                                    <tr>
-                                        <th></th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Tim 1
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Tim 2
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Skor Tim 1
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                            Skor Tim 2
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-gray-800">
+            </section>
+            <section id="juara-3">
+                <h1 class="text-center text-lg text-gray-400 font-medium">Pertandingan Juara 3</h1>
+                <h2 class="text-center text-lg text-gray-400 font-medium">[00:00]</h2>
+                <div class="flex flex-col mt-6">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden sm:rounded-lg">
+                                <table class="min-w-full text-sm text-gray-400">
+                                    <thead class="bg-gray-800 text-xs uppercase font-medium">
+                                        <tr>
+                                            <th></th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Tim 2
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                                Skor Tim 2
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-gray-800">
 
-                                    <tr class="bg-black bg-opacity-20">
-                                        <td class="pl-4">
-                                            1
-                                        </td>
-                                        <td class="flex px-6 py-4 whitespace-nowrap">
-                                            A
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            B
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            11
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            3
+                                        <tr class="bg-black bg-opacity-20">
+                                            <td class="pl-4">
+                                                1
+                                            </td>
+                                            <td class="flex px-6 py-4 whitespace-nowrap">
+                                                A
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                B
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                11
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                3
 
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-        </section>
-    </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+            </section>
+        </div>
     </div>
     </div>
     </div>
 </main>
+
 <script>
     $(function () {
         $("#semi-final").hide()
