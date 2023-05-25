@@ -18,6 +18,8 @@ def base_page(request):
 
 def dashboard_page(request):
     user_logged_in = None
+    if ('is_atlet' not in request.session) and ('is_pelatih' not in request.session) and ('is_umpire' not in request.session):
+        return HttpResponseRedirect(reverse("authentication:main_auth"))
     if request.session['is_atlet'] or request.session['is_pelatih'] or request.session['is_umpire']:
         if request.session['user']['role'] =='atlet':
             user_logged_in = SQLprofileAtlet(request.session['user']['id'])
